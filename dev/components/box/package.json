@@ -1,0 +1,29 @@
+{
+  "family": "",
+  "name": "box",
+  "version": "1.0.0",
+  "description": "1",
+  "homepage": "https://github.com/lt/box",
+  "author": "a",
+  "maintainers": [
+    "a"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/lt/box.git"
+  },
+  "bugs": {
+    "url": ""
+  },
+  "keywords": [],
+  "licenses": "MIT",
+  "spm": {
+    "output": [
+      "box.js",
+      "box.css"
+    ],
+    "alias": {},
+    "devAlias": {},
+    "engines": {}
+  }
+}

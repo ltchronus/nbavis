@@ -1,0 +1,29 @@
+{
+  "family": "",
+  "name": "bix",
+  "version": "1.0.0",
+  "description": "The best project ever.",
+  "homepage": "https://github.com/lt/bix",
+  "author": "",
+  "maintainers": [
+    ""
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/lt/bix.git"
+  },
+  "bugs": {
+    "url": ""
+  },
+  "keywords": [],
+  "licenses": "MIT",
+  "spm": {
+    "output": [
+      "bix.js",
+      "bix.css"
+    ],
+    "alias": {},
+    "devAlias": {},
+    "engines": {}
+  }
+}
