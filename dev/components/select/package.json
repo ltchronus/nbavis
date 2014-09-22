@@ -1,0 +1,29 @@
+{
+  "family": "",
+  "name": "select",
+  "version": "1.0.0",
+  "description": "The best project ever.",
+  "homepage": "https://github.com/ltchronus/nbavis",
+  "author": "",
+  "maintainers": [
+    ""
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ltchronus/nbavis.git"
+  },
+  "bugs": {
+    "url": ""
+  },
+  "keywords": [],
+  "licenses": "MIT",
+  "spm": {
+    "output": [
+      "select.js",
+      "select.css"
+    ],
+    "alias": {},
+    "devAlias": {},
+    "engines": {}
+  }
+}
