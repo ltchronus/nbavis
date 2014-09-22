@@ -10,7 +10,6 @@ module.exports = function(grunt) {
                     imagesDir: "public/images",
                     javascriptsDir: "public/javascripts",
                     force: true,
-                    // importPath: 'dev/components/box/src'
                 }
             }
         },
@@ -23,8 +22,8 @@ module.exports = function(grunt) {
 
     };
 
-    grunt.file.expand('dev/components/*/src').forEach(function(path) {
-        config.compass[path] = { options: { sassDir: path, cssDir: path } };
+    grunt.file.expand(['dev/components/*/src','public/*/sass']).forEach(function(path) {
+        config.compass[path] = { options: { sassDir: path, cssDir: path.replace('sass','stylesheets') } };
     });
     grunt.initConfig(config);
 
