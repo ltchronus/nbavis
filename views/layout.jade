@@ -3,22 +3,9 @@ html
   head
     title= title
     link(rel='stylesheet', href='public/index/stylesheets/index.css')
+    block links
     script(src='../sea-modules/seajs/seajs/2.2.1/sea-debug.js')
-    script.
-      // Set configuration
-      seajs.config({
-
-        alias: {
-          'jquery': '/sea-modules/jquery/jquery/2.1.0/jquery',
-          'index' : '/public/index/javascripts/index'
-        }
-      })
-
-      seajs.use(['index'], function(index) {
-        //- $(document).ready(function() {
-          console.log(11111111);
-        //- })
-      })
+    block scripts
   body
     nav.nav
         a.title nbavis
@@ -27,3 +14,4 @@ html
             li team
             li search
     block content
+    block scriptsEnd
