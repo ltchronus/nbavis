@@ -1,5 +1,5 @@
 {
-  "family": "",
+  "family": "court",
   "name": "court",
   "version": "1.0.0",
   "description": "The best project ever.",
@@ -23,8 +23,12 @@
       "Zone14.js",
       "court.css"
     ],
-    "alias": {},
-    "devAlias": {},
+    "alias":{
+      "d3":"d3",
+      "jquery":"jquery"
+    },
+    "devAlias": {
+      },
     "engines": {}
   }
 }

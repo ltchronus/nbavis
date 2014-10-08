@@ -1,5 +1,8 @@
 define(function(require, exports, module) {
 
+    var ShotFilter = require("./ShotFilter");
+
+
 var ShotFilterEmpty = function(data) {
     this.data = data;
 }

@@ -3,6 +3,8 @@ define(function(require, exports, module) {
     var  ShotchartUi = require('./ShotchartUi');
     var  ZoneHelper = require('./ZoneHelper');
     var  color_helper = require('./color_helper');
+    var ShotFilterCrossFilter = require("./ShotFilterCrossFilter");
+    var d3 = require("d3");
 
     var Zone14 = function(courtobj, data, color_helper) {
         ShotchartUi.call(this);

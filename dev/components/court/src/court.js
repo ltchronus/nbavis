@@ -2,6 +2,7 @@ define(function(require, exports, module) {
 
     /* Dependent on scrollTo jquery plugin*/
     var  ShotchartUi = require('./ShotchartUi');
+    var d3 = require('d3');
     // var  ZoneHelper = require('./ZoneHelper');
     // var  color_helper = require('./color_helper');
 
