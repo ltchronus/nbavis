@@ -9,24 +9,27 @@ block scripts
         alias: {
           'jquery': '/sea-modules/jquery/jquery/2.1.0/jquery',
           'index' : '/public/index/javascripts/index',
+          'court':'/public/index/javascripts/court-debug',
           'd3' : '/sea-modules/gallery/d3/3.4.3/d3'
         }
       })
 
-      //- seajs.use(['index'], function(index) {
-      //-   //- $(document).ready(function() {
-      //-     //- console.log(11111111);
-      //-   //- })
+      seajs.use(['court'], function(VORPED) {
+        //- $(document).ready(function() {
+          //- console.log(11111111);
+        //- })
 
-      //-   var summary = new index({
-      //-       width: 700,
-      //-       height: 960,
-      //-       ele: 'div'
-      //-       });
-      //-   summary.init();
-      //-   summary.render();
-      //-   summary.event();
-      //- })
+        //- var summary = new index({
+        //-     width: 700,
+        //-     height: 960,
+        //-     ele: 'div'
+        //-     });
+        //- summary.init();
+        //- summary.render();
+        //- summary.event();
+        var court = new  VORPED.court();
+        console.log( court );
+      })
 block content
 
   div.container
@@ -102,5 +105,7 @@ block content
 
 
 block scriptsEnd
-  script(type="text/javascript", src="/sea-modules/jquery/jquery/1.10.1/jquery.js")
-  script(type="text/javascript", src="public/index/javascripts/metro.js")
+  script(type="text/javascript", src="/sea-modules/jquery/jquery/2.1.0/jquery.js")
+  
+
+  //- script(type="text/javascript", src="public/index/javascripts/metro.js")
