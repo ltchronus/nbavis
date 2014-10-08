@@ -22,7 +22,8 @@
   "spm": {
     "alias": {
       "jquery": "jquery/jquery/2.1.0/jquery",
-      "sea": "seajs/seajs/2.2.1/sea"
+      "sea": "seajs/seajs/2.2.1/sea",
+      "d3": "gallery/d3/3.4.3/d3"
     }
   }
 }
