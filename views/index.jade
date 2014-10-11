@@ -9,99 +9,31 @@ block scripts
         alias: {
           'jquery': '/sea-modules/jquery/jquery/2.1.0/jquery',
           'index' : '/public/index/javascripts/index',
-          'court':'/public/index/javascripts/court-debug',
+          'court':'/dev/components/court/src/court',
+          "Zone14":'/dev/components/court/src/Zone14',
+          'half_court':'/dev/components/court/src/half_court',
           'd3' : '/sea-modules/gallery/d3/3.4.3/d3'
         }
       })
 
-      seajs.use(['court'], function(VORPED) {
-        //- $(document).ready(function() {
-          //- console.log(11111111);
-        //- })
+      seajs.use(['court','d3','Zone14','half_court'], function(VORPED,d3,Zone14,half_court) {
+        
+        //- var courtObj = new VORPED.court();
+        //- var court = courtObj.draw('court','');
 
-        //- var summary = new index({
-        //-     width: 700,
-        //-     height: 960,
-        //-     ele: 'div'
-        //-     });
-        //- summary.init();
-        //- summary.render();
-        //- summary.event();
-        var court = new  VORPED.court();
-        console.log( court );
+        var halfcourtObj = new half_court.court();
+        var halfcourt =  halfcourtObj.draw('court1','');
+        var obj_zone = new Zone14(halfcourtObj,[],[]);
+        obj_zone.draw();
+        obj_zone.show(0);
+        halfcourt.selectAll(".shotzone14").attr('fill','white');
+
+        d3.select("svg").attr("style","background-color: white");
+        //- console.log( bb );
       })
 block content
 
-  div.container
-    //- classnames for the pages should include: 1) type of page 2) page name
-    div.s-page.random-restored-page
-      h2.page-title ss
-      div.close-button.s-close-button x
-    div.s-page.custom-page
-      h2.page-title Thanks
-      div.close-button.s-close-button x
-    div.r-page.random-r-page
-      div.page-content
-        h2.page-title APP
-        p dwefrgfregsrgrthgergrwhgrhrth
-      div.close-button.r-close-button x
-    //- page ending
-
-    div.dashboard.clearfix
-      ul.tiles
-        //- col1
-        div.col1.clearfix
-          li.tile.tile-big.tile-1.slideTextUp(data-page-type='r-page', data-page-name='random-r-page')
-            div
-              p This tile's content slides up
-            div
-              p View all tasks
-          li.tile.tile-small.tile-2.slideTextRight(data-page-type='s-page', data-page-name='random-restored-page')
-            div
-              p.icon-arrow-right This tile's content slides up
-            div
-              p Tile's content slides right. Page opens from left
-          li.tile.tile-small.tile-3.last(data-page-type='r-page', data-page-name='random-r-page')
-            div
-              p.icon-calendar-alt-fill ssss
-          li.tile.tile-big.tile-4.fig-tile(data-page-type='r-page', data-page-name='random-r-page')
-            figure
-              img(src="images/blue", alt="aaa")
-              figcaption.tile-caption.caption-left Slide-out Caption from left
-        //- col2
-        div.col2.clearfix
-          li.tile.tile-big.tile-5(data-page-type='r-page', data-page-name='random-r-page')
-            div
-              p Weather
-                span.icon-cloudy
-          li.tile.tile-big.tile-6.slideTextLeft(data-page-type='r-page', data-page-name='random-r-page')
-            div
-              p Skype
-                span.icon-skype
-            div
-              p make a call
-          li.tile.tile-small.tile-7.rotate3d.rotate3dX(data-page-type='r-page', data-page-name='random-r-page')
-            div.faces
-              div.front
-                span.icon-picassa
-              div.back
-                p Launch Picassa
-          li.tile.tile-small.tile-8.last.rotate3d.rotate3dY(data-page-type='r-page', data-page-name='random-r-page')
-            div.faces
-              div.front
-                span.icon-instagram
-              div.back
-                p Launch Instagram
-
-        //- col3
-        div.col3.clearfix
-          li.tile.tile-2xbig.tile-9.fig-tile(data-page-type='custom-page', data-page-name='random-r-page')
-            figure
-              img(src="images/summer", alt="aaa")
-              figcaption.tile-caption.caption-bottom Fixed Caption: Some Subtitle or Tile Description Goes Here with some kinda link or anything
-          li.tile.tile-big.tile-10(data-page-type='s-page', data-page-name='custom-page')
-            div
-              p Windows-8-like Animations with CSS3 &amp; jQuery &copy; Sara Soueidan. Licensed under MIT.
+  div#chart
 
 
 block scriptsEnd

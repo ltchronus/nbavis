@@ -1,6 +1,6 @@
 define(function(require, exports, module) {
 
-	// var d3 = require('d3');
+	var d3 = require('d3');
 
 	var ShotchartUi = function(courtobj, data) {
 		this.courtobj = courtobj;
@@ -95,6 +95,6 @@ define(function(require, exports, module) {
 		}
 	};
 
-	// module.exports = ShotchartUi;
+	module.exports = ShotchartUi;
 
 });

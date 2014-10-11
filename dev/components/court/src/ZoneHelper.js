@@ -69,6 +69,6 @@ define(function(require, exports, module) {
         },
     }
 
-    // module.exports = ZoneHelper;
+   exports = module.exports = ZoneHelper;
 
 });

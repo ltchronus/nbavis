@@ -7,4 +7,5 @@ define(function(require, exports, module) {
 		filter: function(){},
 	}
 
+	exports = module.exports = ShotFilter;
 });

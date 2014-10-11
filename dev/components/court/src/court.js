@@ -1,7 +1,6 @@
 define(function(require, exports, module) {
 
     /* Dependent on scrollTo jquery plugin*/
-    var  ShotchartUi = require('./ShotchartUi');
     var d3 = require('d3');
     // var  ZoneHelper = require('./ZoneHelper');
     // var  color_helper = require('./color_helper');
@@ -48,7 +47,8 @@ define(function(require, exports, module) {
         }
 
         this.container = {};
-        this.draw = function(court_id, court_label_text) {
+        this.draw = function(container_id,court_id, court_label_text) {
+            // container_id = container_id || '#chart';
             this.config = {
                 'div_container': '#chart',
                 'svg': {

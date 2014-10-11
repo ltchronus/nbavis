@@ -6,7 +6,7 @@ define(function(require, exports, module) {
 var ShotFilterCrossFilter = function(data) {
     this.data = data;
 }
-ShotFilterCrossFilter.prototype = new ShotFilter();
+// ShotFilterCrossFilter.prototype = new ShotFilter();
 ShotFilterCrossFilter.prototype.constructor = ShotFilterCrossFilter;
 ShotFilterCrossFilter.prototype.format_data = function(data, helper) {
     var shots_by_zone       = data.group();
@@ -26,10 +26,6 @@ ShotFilterCrossFilter.prototype.get_shots = function(data) {
     return data.group().all();
 }
 
-
-
-
-
-  // module.exports = ShotFilterCrossFilter;
+  exports = module.exports = ShotFilterCrossFilter;
 
 });
