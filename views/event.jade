@@ -1,0 +1,166 @@
+extends layout
+block links
+  //- link(rel='stylesheet', href='public/index/stylesheets/metro.css')
+  link(rel='stylesheet', href='public/event/stylesheets/event.css')
+      
+block content
+  div(class='event_flow')
+    div(id='map',class='left')
+    div(id='map2',class='right')
+
+
+block scriptsEnd
+  script(type='text/javascript', src='')
+  script(type="text/javascript", src="/dev/echarts/echarts-plain-original.js")
+  script.
+  
+    var map = document.getElementById('map');
+    var option = {
+      tooltip : {
+          trigger: 'axis',
+          axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+              type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+          }
+      },
+      legend: {
+          data:['直接访问', '邮件营销','联盟广告','视频广告','搜索引擎'],
+          x:'center',
+          y:'bottom'
+      },
+      toolbox: {
+          show : true,
+          feature : {
+              mark : {show: true},
+              dataView : {show: true, readOnly: false},
+              magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+              restore : {show: true},
+              saveAsImage : {show: true}
+          }
+      },
+      dataZoom : {
+        show : true,
+        realtime : true,
+        orient:'vertical',
+        //- y: 36,
+        x:10,
+        width: 20,
+        height: 360,
+        //backgroundColor: 'rgba(221,160,221,0.5)',
+        //dataBackgroundColor: 'rgba(138,43,226,0.5)',
+        //fillerColor: 'rgba(38,143,26,0.6)',
+        //handleColor: 'rgba(128,43,16,0.8)',
+        //xAxisIndex:[],
+        //- yAxisIndex:['周日','周六','周五','周四','周三','周二','周一'],
+        zoomLock:false,
+        start : 0,
+        end : 60
+      },
+      calculable : true,
+      xAxis : [
+          {
+              type : 'value'
+          }
+      ],
+      yAxis : [
+          {
+              type : 'category',
+              
+              data : ['周一','周二','周三','周四','周五','周六','周日']
+              //- data : ['周日','周六','周五','周四','周三','周二','周一']
+          }
+      ],
+      series : [
+          {
+              name:'直接访问',
+              type:'bar',
+              stack: '总量',
+              itemStyle : { normal: {label : {show: true, position: 'insideRight'}}},
+              data:[320, 302, 301, 334, 390, 330, 320]
+          },
+          {
+              name:'邮件营销',
+              type:'bar',
+              stack: '总量',
+              itemStyle : { normal: {label : {show: true, position: 'insideRight'}}},
+              data:[120, 132, 101, 134, 90, 230, 210]
+          },
+          {
+              name:'直接访问',
+              type:'bar',
+              stack: '总量',
+              itemStyle : { normal: {label : {show: true, position: 'insideRight'}}},
+              data:[320, 302, 301,'', 334, 390, 330]
+          },
+          {
+              name:'联盟广告',
+              type:'bar',
+              stack: '总量',
+              itemStyle : { normal: {label : {show: true, position: 'insideRight'}}},
+              data:[220, 182, 191, 234, 290, 330, 310]
+          },
+          {
+              name:'视频广告',
+              type:'bar',
+              stack: '总量',
+              itemStyle : { normal: {label : {show: true, position: 'insideRight'}}},
+              data:[150, 212, 201, 154, 190, 330, 410]
+          },
+          {
+              name:'搜索引擎',
+              type:'bar',
+              stack: '总量',
+              itemStyle : { normal: {label : {show: true, position: 'insideRight'}}},
+              data:[820, 832, 901, 934, 1290, 1330, 1320]
+          }
+      ]
+    };
+                    
+    var myChart = echarts.init( map );
+    var config = echarts.config;
+
+    myChart.on( config.EVENT.CLICK, mapClick);
+    myChart.on( config.EVENT.MAP_SELECTED, mapSelect );
+    //- myChart.on( config.EVENT.CLICK, mapClick);
+
+    myChart.setOption( option );
+    console.dir( myChart );
+
+    function mapClick( params ){
+       seajs.config({
+
+        alias: {
+          'jquery': '/sea-modules/jquery/jquery/2.1.0/jquery',
+          'index' : '/public/index/javascripts/index',
+          'court':'/dev/components/court/src/court',
+          "Zone14":'/dev/components/court/src/Zone14',
+          'half_court':'/dev/components/court/src/half_court',
+          'd3' : '/sea-modules/gallery/d3/3.4.3/d3'
+        }
+      })
+
+      seajs.use(['court','d3','Zone14','half_court'], function(VORPED,d3,Zone14,half_court) {
+        
+        //- var courtObj = new VORPED.court();
+        //- var court = courtObj.draw('court','');
+
+        var halfcourtObj = new half_court.court();
+        var halfcourt =  halfcourtObj.draw('court1','');
+        var obj_zone = new Zone14(halfcourtObj,[],[]);
+        obj_zone.draw();
+        obj_zone.show(0);
+        halfcourt.selectAll(".shotzone14").attr('fill','white');
+
+        d3.select("svg").attr("style","background-color: white");
+        var tt = echarts;
+        console.log( obj_zone );
+      })
+      console.log( 'mapClick' );
+      console.log(params);
+    }
+
+    function mapSelect( params ){
+      console.log( 'mapSelect' );
+      console.log(params);
+    }
+
+
