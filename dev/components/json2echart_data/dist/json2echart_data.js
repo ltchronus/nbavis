@@ -1,0 +1,1 @@
+define("undefinedjson2echart_data",[],function(a,b,c){var d;d=function(a){this._jsonData=a||"",this._data=null},d.prototype.getData=function(){return this._data=this._jsonData,this._data},c.exports=d});

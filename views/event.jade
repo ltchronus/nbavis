@@ -10,7 +10,6 @@ block content
 
 
 block scriptsEnd
-  script(type='text/javascript', src='')
   script(type="text/javascript", src="/dev/echarts/echarts-plain-original.js")
   script.
   
@@ -64,53 +63,108 @@ block scriptsEnd
       yAxis : [
           {
               type : 'category',
-              
               data : ['周一','周二','周三','周四','周五','周六','周日']
-              //- data : ['周日','周六','周五','周四','周三','周二','周一']
           }
       ],
+      tooltip:function(params){
+        return params.name + ':' + params.value;
+      },
       series : [
           {
               name:'直接访问',
               type:'bar',
               stack: '总量',
               itemStyle : { normal: {label : {show: true, position: 'insideRight'}}},
-              data:[320, 302, 301, 334, 390, 330, 320]
+              //- data:[320, 302, 301, 334, 390, 330, 320]
+              data:[
+                {'name':'key1','value':111},
+                {'name':'key2','value':222},
+                {'name':'key3','value':333},
+                {'name':'key4','value':444},
+                {'name':'key5','value':555},
+                {'name':'key6','value':666},
+                {'name':'key7','value':777}
+              ]
           },
           {
               name:'邮件营销',
               type:'bar',
               stack: '总量',
               itemStyle : { normal: {label : {show: true, position: 'insideRight'}}},
-              data:[120, 132, 101, 134, 90, 230, 210]
+              //- data:[120, 132, 101, 134, 90, 230, 210]
+              data:[
+                {'name':'key1','value':111},
+                {'name':'key2','value':222},
+                {'name':'key3','value':333},
+                {'name':'key4','value':444},
+                {'name':'key5','value':555},
+                {'name':'key6','value':666},
+                {'name':'key7','value':777}
+              ]
           },
           {
               name:'直接访问',
               type:'bar',
               stack: '总量',
               itemStyle : { normal: {label : {show: true, position: 'insideRight'}}},
-              data:[320, 302, 301,'', 334, 390, 330]
+              //- data:[320, 302, 301,'', 334, 390, 330]
+              data:[
+                {'name':'key1','value':111},
+                {'name':'key2','value':222},
+                {'name':'key3','value':333},
+                {'name':'key4','value':444},
+                {'name':'key5','value':555},
+                {'name':'key6','value':666},
+                {'name':'key7','value':777}
+              ]
           },
           {
               name:'联盟广告',
               type:'bar',
               stack: '总量',
               itemStyle : { normal: {label : {show: true, position: 'insideRight'}}},
-              data:[220, 182, 191, 234, 290, 330, 310]
+              //- data:[220, 182, 191, 234, 290, 330, 310]
+              data:[
+                {'name':'key1','value':111},
+                {'name':'key2','value':222},
+                {'name':'key3','value':333},
+                {'name':'key4','value':444},
+                {'name':'key5','value':555},
+                {'name':'key6','value':666},
+                {'name':'key7','value':777}
+              ]
           },
           {
               name:'视频广告',
               type:'bar',
               stack: '总量',
               itemStyle : { normal: {label : {show: true, position: 'insideRight'}}},
-              data:[150, 212, 201, 154, 190, 330, 410]
+              //- data:[150, 212, 201, 154, 190, 330, 410]
+              data:[
+                {'name':'key1','value':111},
+                {'name':'key2','value':222},
+                {'name':'key3','value':333},
+                {'name':'key4','value':444},
+                {'name':'key5','value':555},
+                {'name':'key6','value':666},
+                {'name':'key7','value':777}
+              ]
           },
           {
               name:'搜索引擎',
               type:'bar',
               stack: '总量',
               itemStyle : { normal: {label : {show: true, position: 'insideRight'}}},
-              data:[820, 832, 901, 934, 1290, 1330, 1320]
+              //- data:[820, 832, 901, 934, 1290, 1330, 1320]
+              data:[
+                {'name':'key1','value':111},
+                {'name':'key2','value':222},
+                {'name':'key3','value':333},
+                {'name':'key4','value':444},
+                {'name':'key5','value':555},
+                {'name':'key6','value':666},
+                {'name':'key7','value':777}
+              ]
           }
       ]
     };
@@ -120,10 +174,9 @@ block scriptsEnd
 
     myChart.on( config.EVENT.CLICK, mapClick);
     myChart.on( config.EVENT.MAP_SELECTED, mapSelect );
-    //- myChart.on( config.EVENT.CLICK, mapClick);
+    myChart.on( config.EVENT.CLICK, mapClick);
 
     myChart.setOption( option );
-    console.dir( myChart );
 
     function mapClick( params ){
        seajs.config({
@@ -134,11 +187,12 @@ block scriptsEnd
           'court':'/dev/components/court/src/court',
           "Zone14":'/dev/components/court/src/Zone14',
           'half_court':'/dev/components/court/src/half_court',
-          'd3' : '/sea-modules/gallery/d3/3.4.3/d3'
+          'd3' : '/sea-modules/gallery/d3/3.4.3/d3',
+          'json2echart_data':'/dev/components/json2echart_data/src/json2echart_data'
         }
       })
 
-      seajs.use(['court','d3','Zone14','half_court'], function(VORPED,d3,Zone14,half_court) {
+      seajs.use(['court','d3','Zone14','half_court','json2echart_data'], function(VORPED,d3,Zone14,half_court,json2echart_data) {
         
         //- var courtObj = new VORPED.court();
         //- var court = courtObj.draw('court','');
@@ -151,8 +205,12 @@ block scriptsEnd
         halfcourt.selectAll(".shotzone14").attr('fill','white');
 
         d3.select("svg").attr("style","background-color: white");
-        var tt = echarts;
-        console.log( obj_zone );
+        var testdata  = {
+          'key':"1111111",
+          'name':'test'
+        };
+        var json = new json2echart_data(testdata).getData();
+        console.log( json );
       })
       console.log( 'mapClick' );
       console.log(params);
