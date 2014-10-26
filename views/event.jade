@@ -2,7 +2,7 @@ extends layout
 block links
   //- link(rel='stylesheet', href='public/index/stylesheets/metro.css')
   link(rel='stylesheet', href='public/event/stylesheets/event.css')
-      
+
 block content
   div(class='event_flow')
     div(id='map',class='left')
@@ -12,168 +12,112 @@ block content
 block scriptsEnd
   script(type="text/javascript", src="/dev/echarts/echarts-plain-original.js")
   script.
-  
+
     var map = document.getElementById('map');
     var option = {
-      tooltip : {
+       tooltip : {
           trigger: 'axis',
           axisPointer : {            // 坐标轴指示器，坐标轴触发有效
-              type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+          }
+          ,formatter:function(params){
+              var param = params[0];
+              console.log( params);
+              var result = 'name: ' + param[2].name + '---'
+                  + 'data: ' + param[2].value;
+              return result;
           }
       },
       legend: {
-          data:['直接访问', '邮件营销','联盟广告','视频广告','搜索引擎'],
-          x:'center',
-          y:'bottom'
+        x:'left',
+        y:'bottom',
+        data:['上篮', '抢断','盖帽','防守','三分','罚球','失误','犯规']
       },
-      toolbox: {
-          show : true,
-          feature : {
-              mark : {show: true},
-              dataView : {show: true, readOnly: false},
-              magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
-              restore : {show: true},
-              saveAsImage : {show: true}
-          }
-      },
-      dataZoom : {
-        show : true,
-        realtime : true,
-        orient:'vertical',
-        //- y: 36,
+      dataZoom:{
+        show:true,
+        realtime:true,
+        orient:'verical',
         x:10,
-        width: 20,
-        height: 360,
-        //backgroundColor: 'rgba(221,160,221,0.5)',
-        //dataBackgroundColor: 'rgba(138,43,226,0.5)',
-        //fillerColor: 'rgba(38,143,26,0.6)',
-        //handleColor: 'rgba(128,43,16,0.8)',
-        //xAxisIndex:[],
-        //- yAxisIndex:['周日','周六','周五','周四','周三','周二','周一'],
-        zoomLock:false,
-        start : 0,
-        end : 60
+        width:20,
+        height:280,
+        zommlock:false,
+        start:20,
+        end:50
       },
       calculable : true,
       xAxis : [
-          {
-              type : 'value'
-          }
+        {
+          type : 'value'
+        }
       ],
       yAxis : [
-          {
-              type : 'category',
-              data : ['周一','周二','周三','周四','周五','周六','周日']
-          }
+        {
+          type : 'category',
+          data : ['周一','周二','周三','周四']
+        }
       ],
-      tooltip:function(params){
-        return params.name + ':' + params.value;
-      },
       series : [
-          {
-              name:'直接访问',
-              type:'bar',
-              stack: '总量',
-              itemStyle : { normal: {label : {show: true, position: 'insideRight'}}},
-              //- data:[320, 302, 301, 334, 390, 330, 320]
-              data:[
-                {'name':'key1','value':111},
-                {'name':'key2','value':222},
-                {'name':'key3','value':333},
-                {'name':'key4','value':444},
-                {'name':'key5','value':555},
-                {'name':'key6','value':666},
-                {'name':'key7','value':777}
-              ]
-          },
-          {
-              name:'邮件营销',
-              type:'bar',
-              stack: '总量',
-              itemStyle : { normal: {label : {show: true, position: 'insideRight'}}},
-              //- data:[120, 132, 101, 134, 90, 230, 210]
-              data:[
-                {'name':'key1','value':111},
-                {'name':'key2','value':222},
-                {'name':'key3','value':333},
-                {'name':'key4','value':444},
-                {'name':'key5','value':555},
-                {'name':'key6','value':666},
-                {'name':'key7','value':777}
-              ]
-          },
-          {
-              name:'直接访问',
-              type:'bar',
-              stack: '总量',
-              itemStyle : { normal: {label : {show: true, position: 'insideRight'}}},
-              //- data:[320, 302, 301,'', 334, 390, 330]
-              data:[
-                {'name':'key1','value':111},
-                {'name':'key2','value':222},
-                {'name':'key3','value':333},
-                {'name':'key4','value':444},
-                {'name':'key5','value':555},
-                {'name':'key6','value':666},
-                {'name':'key7','value':777}
-              ]
-          },
-          {
-              name:'联盟广告',
-              type:'bar',
-              stack: '总量',
-              itemStyle : { normal: {label : {show: true, position: 'insideRight'}}},
-              //- data:[220, 182, 191, 234, 290, 330, 310]
-              data:[
-                {'name':'key1','value':111},
-                {'name':'key2','value':222},
-                {'name':'key3','value':333},
-                {'name':'key4','value':444},
-                {'name':'key5','value':555},
-                {'name':'key6','value':666},
-                {'name':'key7','value':777}
-              ]
-          },
-          {
-              name:'视频广告',
-              type:'bar',
-              stack: '总量',
-              itemStyle : { normal: {label : {show: true, position: 'insideRight'}}},
-              //- data:[150, 212, 201, 154, 190, 330, 410]
-              data:[
-                {'name':'key1','value':111},
-                {'name':'key2','value':222},
-                {'name':'key3','value':333},
-                {'name':'key4','value':444},
-                {'name':'key5','value':555},
-                {'name':'key6','value':666},
-                {'name':'key7','value':777}
-              ]
-          },
-          {
-              name:'搜索引擎',
-              type:'bar',
-              stack: '总量',
-              itemStyle : { normal: {label : {show: true, position: 'insideRight'}}},
-              //- data:[820, 832, 901, 934, 1290, 1330, 1320]
-              data:[
-                {'name':'key1','value':111},
-                {'name':'key2','value':222},
-                {'name':'key3','value':333},
-                {'name':'key4','value':444},
-                {'name':'key5','value':555},
-                {'name':'key6','value':666},
-                {'name':'key7','value':777}
-              ]
-          }
+        {
+            name:'周一',
+            type:'bar',
+            stack: '总量',
+            itemStyle : { normal: {label : {show: true, position: 'insideRight'}}},
+            data:[{
+              value: 11,
+              name:'上篮'
+            }]
+        },
+        {
+            name:'周二',
+            type:'bar',
+            stack: '总量',
+            itemStyle : { normal: {label : {show: true, position: 'insideRight'}}},
+            data:[{
+              value: 21,
+              name:'上篮'
+            }, {
+              value: 22,
+              name:'失误'
+            }]
+        },
+        {
+            name:'周三',
+            type:'bar',
+            stack: '总量',
+            itemStyle : { normal: {label : {show: true, position: 'insideRight'}}},
+            data:[{
+              value: 31,
+              name:'抢断'
+            },{
+              value: 32,
+              name:'失误'
+            },{
+              value: 33,
+              name:'罚球'
+            }]
+        },
+        {
+            name:'周四',
+            type:'bar',
+            stack: '总量',
+            itemStyle : { normal: {label : {show: true, position: 'insideRight'}}},
+            data:[{
+              value: 41,
+              name:'犯规'
+            },{
+              value: 42,
+              name:'防守'
+            },{
+              value: 43,
+              name:'罚球'
+            }]
+        }
       ]
     };
-                    
+
     var myChart = echarts.init( map );
     var config = echarts.config;
 
-    myChart.on( config.EVENT.CLICK, mapClick);
-    myChart.on( config.EVENT.MAP_SELECTED, mapSelect );
     myChart.on( config.EVENT.CLICK, mapClick);
 
     myChart.setOption( option );
@@ -192,8 +136,8 @@ block scriptsEnd
         }
       })
 
-      seajs.use(['court','d3','Zone14','half_court','json2echart_data'], function(VORPED,d3,Zone14,half_court,json2echart_data) {
-        
+      seajs.use(['jquery','court','d3','Zone14','half_court','json2echart_data'], function(jquery,VORPED,d3,Zone14,half_court,json2echart_data) {
+
         //- var courtObj = new VORPED.court();
         //- var court = courtObj.draw('court','');
 
@@ -205,12 +149,14 @@ block scriptsEnd
         halfcourt.selectAll(".shotzone14").attr('fill','white');
 
         d3.select("svg").attr("style","background-color: white");
-        var testdata  = {
-          'key':"1111111",
-          'name':'test'
-        };
-        var json = new json2echart_data(testdata).getData();
-        console.log( json );
+
+
+        //- var $ = new jquery();
+        jQuery.getJSON('/public/data/1.json', function(nbajson){
+          var json = new json2echart_data(nbajson).getData();
+          console.log( json );
+          console.log(nbajson);
+          });
       })
       console.log( 'mapClick' );
       console.log(params);

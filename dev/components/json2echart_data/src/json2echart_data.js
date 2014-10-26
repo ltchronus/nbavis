@@ -4,7 +4,7 @@ define(function(require, exports, module) {
 
   json2echart_data = function( jsonData){
   	this._jsonData = jsonData || '';
-  	this._data = null;
+  	this._data = {};
   }
 
   json2echart_data.prototype.getData = function() {
@@ -19,7 +19,14 @@ define(function(require, exports, module) {
   		'offensivefoul','teamtimeout','threepointmade','technicalfoul'
   	]; 
 
-    var  period_number = 
+    var  possession =  '';
+
+    for( var i = 0, l = this._jsonData.period.length; i < l; i++){
+      possession = this._jsonData.period[i].possession;
+      for(var j = 0, m = possession.length; j < m; j++){
+        
+      }
+    }
 
   	
 
