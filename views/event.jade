@@ -12,159 +12,115 @@ block content
 block scriptsEnd
   script(type="text/javascript", src="/dev/echarts/echarts-plain-original.js")
   script.
+    var game_data;
+    seajs.config({
+      alias: {
+        'jquery': '/sea-modules/jquery/jquery/2.1.0/jquery',
+        'index' : '/public/index/javascripts/index',
+        'court':'/dev/components/court/src/court',
+        "Zone14":'/dev/components/court/src/Zone14',
+        'half_court':'/dev/components/court/src/half_court',
+        'd3' : '/sea-modules/gallery/d3/3.4.3/d3',
+        'json2echart_data':'/dev/components/json2echart_data/src/json2echart_data'
+      }
+    })
 
-    var map = document.getElementById('map');
-    var option = {
-       tooltip : {
+    seajs.use(['jquery','court','d3','Zone14','half_court','json2echart_data'], function(jquery,VORPED,d3,Zone14,half_court,json2echart_data) {
+
+      //- var courtObj = new VORPED.court();
+      //- var court = courtObj.draw('court','');
+
+      var halfcourtObj = new half_court.court();
+      var halfcourt =  halfcourtObj.draw('court1','');
+      var obj_zone = new Zone14(halfcourtObj,[],[]);
+      obj_zone.draw();
+      obj_zone.show(0);
+      halfcourt.selectAll(".shotzone14").attr('fill','white');
+
+      d3.select("svg").attr("style","background-color: white");
+
+      //- var $ = new jquery();
+      jQuery.getJSON('/public/data/game.json', function(nbajson){
+        game_data = new json2echart_data(nbajson).getData();
+        console.log( game_data);
+        init_echarts();
+      })
+    })
+
+    function init_echarts(){
+      var map = document.getElementById('map');
+      var height = map.scrollHeight;
+      var option = {
+        tooltip : {
           trigger: 'axis',
           axisPointer : {            // 坐标轴指示器，坐标轴触发有效
             type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+          },
+          formatter:function(params){
+            var param = params[0][2];
+            //- console.log( params);
+            //- var result = 'name: ' + param[2].name + '---'
+            //- + 'data: ' + param[2].value;
+            var result = "";
+            for( key in param){
+              result += key + " : " + param[key] + "<br/>";
+            }
+            return result;
           }
-          ,formatter:function(params){
-              var param = params[0];
-              console.log( params);
-              var result = 'name: ' + param[2].name + '---'
-                  + 'data: ' + param[2].value;
-              return result;
+        },
+        legend: {
+          x:'left',
+          //- y:'bottom',
+          y:height*0.88,
+          data:game_data["@events"]
+        },
+        grid:{
+          //- height:height,
+          //- x:50,
+          //- y:50,
+          //- x2:50,
+          //- y2:50
+          height:height*0.72
+        },
+        dataZoom:{
+          show:true,
+          realtime:true,
+          orient:'verical',
+          x:10,
+          width:20,
+          height:height*0.72,
+          zommlock:false,
+          start:0,
+          end:8
+        },
+        calculable : true,
+        xAxis : [
+          {
+            type : 'value'
           }
-      },
-      legend: {
-        x:'left',
-        y:'bottom',
-        data:['上篮', '抢断','盖帽','防守','三分','罚球','失误','犯规']
-      },
-      dataZoom:{
-        show:true,
-        realtime:true,
-        orient:'verical',
-        x:10,
-        width:20,
-        height:280,
-        zommlock:false,
-        start:20,
-        end:50
-      },
-      calculable : true,
-      xAxis : [
-        {
-          type : 'value'
-        }
-      ],
-      yAxis : [
-        {
+        ],
+        yAxis : [{
           type : 'category',
-          data : ['周一','周二','周三','周四']
-        }
-      ],
-      series : [
-        {
-            name:'周一',
-            type:'bar',
-            stack: '总量',
-            itemStyle : { normal: {label : {show: true, position: 'insideRight'}}},
-            data:[{
-              value: 11,
-              name:'上篮'
-            }]
-        },
-        {
-            name:'周二',
-            type:'bar',
-            stack: '总量',
-            itemStyle : { normal: {label : {show: true, position: 'insideRight'}}},
-            data:[{
-              value: 21,
-              name:'上篮'
-            }, {
-              value: 22,
-              name:'失误'
-            }]
-        },
-        {
-            name:'周三',
-            type:'bar',
-            stack: '总量',
-            itemStyle : { normal: {label : {show: true, position: 'insideRight'}}},
-            data:[{
-              value: 31,
-              name:'抢断'
-            },{
-              value: 32,
-              name:'失误'
-            },{
-              value: 33,
-              name:'罚球'
-            }]
-        },
-        {
-            name:'周四',
-            type:'bar',
-            stack: '总量',
-            itemStyle : { normal: {label : {show: true, position: 'insideRight'}}},
-            data:[{
-              value: 41,
-              name:'犯规'
-            },{
-              value: 42,
-              name:'防守'
-            },{
-              value: 43,
-              name:'罚球'
-            }]
-        }
-      ]
-    };
+          data : game_data["category"]
+        }],
+        series :game_data["@possessions"]
+      };
+      console.log( option );
+      var myChart = echarts.init( map );
+      var config = echarts.config;
 
-    var myChart = echarts.init( map );
-    var config = echarts.config;
+      myChart.on( config.EVENT.CLICK, mapClick);
 
-    myChart.on( config.EVENT.CLICK, mapClick);
-
-    myChart.setOption( option );
-
-    function mapClick( params ){
-       seajs.config({
-
-        alias: {
-          'jquery': '/sea-modules/jquery/jquery/2.1.0/jquery',
-          'index' : '/public/index/javascripts/index',
-          'court':'/dev/components/court/src/court',
-          "Zone14":'/dev/components/court/src/Zone14',
-          'half_court':'/dev/components/court/src/half_court',
-          'd3' : '/sea-modules/gallery/d3/3.4.3/d3',
-          'json2echart_data':'/dev/components/json2echart_data/src/json2echart_data'
-        }
-      })
-
-      seajs.use(['jquery','court','d3','Zone14','half_court','json2echart_data'], function(jquery,VORPED,d3,Zone14,half_court,json2echart_data) {
-
-        //- var courtObj = new VORPED.court();
-        //- var court = courtObj.draw('court','');
-
-        var halfcourtObj = new half_court.court();
-        var halfcourt =  halfcourtObj.draw('court1','');
-        var obj_zone = new Zone14(halfcourtObj,[],[]);
-        obj_zone.draw();
-        obj_zone.show(0);
-        halfcourt.selectAll(".shotzone14").attr('fill','white');
-
-        d3.select("svg").attr("style","background-color: white");
-
-
-        //- var $ = new jquery();
-        jQuery.getJSON('/public/data/1.json', function(nbajson){
-          var json = new json2echart_data(nbajson).getData();
-          console.log( json );
-          console.log(nbajson);
-          });
-      })
-      console.log( 'mapClick' );
-      console.log(params);
+      myChart.setOption( option );
     }
 
+    function mapClick( params ){
+
+    }
     function mapSelect( params ){
-      console.log( 'mapSelect' );
-      console.log(params);
+
+    //- console.log( 'mapSelect' );
+    //- console.log(params);
     }
 
 

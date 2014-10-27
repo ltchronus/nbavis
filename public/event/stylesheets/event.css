@@ -14,8 +14,8 @@
   position: relative;
   border: 1px solid red;
   float: left;
-  width: 40%;
-  height: 480px;
+  width: 60%;
+  height: 580px;
   top: 50px;
   margin: 10px;
   -moz-transform: translateY(-50px);
@@ -27,11 +27,11 @@
 .event_flow .right {
   position: relative;
   border: 1px solid green;
-  width: 56%;
+  width: 36%;
   display: flex;
   justify-content: center;
   resize: both;
   margin: 10px;
   float: right;
-  height: 480px;
+  height: 580px;
 }
