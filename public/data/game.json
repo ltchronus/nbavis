@@ -20,6 +20,7 @@
                                 "category": "Jump Ball"
                             },
                             {
+                                "score": "0-0",
                                 "end_time": "00:00:26.001",
                                 "time": "00:00:00.001",
                                 "category": "Drive"
@@ -40,6 +41,7 @@
                         "team": "CEL",
                         "event": [
                             {
+                                "score": "0-0",
                                 "end_time": "00:00:27.001",
                                 "time": "00:00:26.001",
                                 "category": "Drive"
@@ -52,6 +54,7 @@
                                 "player": "Avery Bradley"
                             },
                             {
+                                "score": "0-0",
                                 "end_time": "00:00:34.001",
                                 "time": "00:00:27.001",
                                 "category": "Drive"
@@ -64,6 +67,7 @@
                                 "player": "Rudy Gay"
                             },
                             {
+                                "score": "0-0",
                                 "end_time": "00:00:45.001",
                                 "time": "00:00:34.001",
                                 "category": "Drive"
@@ -85,6 +89,7 @@
                         "team": "TOR",
                         "event": [
                             {
+                                "score": "2-0",
                                 "end_time": "00:01:03.001",
                                 "time": "00:00:45.001",
                                 "category": "Drive"

@@ -47,7 +47,7 @@ block scriptsEnd
 
                 $.getJSON('/public/data/game.json', function(nbajson) {
                     game_data = new json2echart_data(nbajson).getData();
-                    console.log( game_data);
+                    console.log(game_data);
                     var height = $('#map')[0].scrollHeight;
                     var option1 = {
                         tooltip: {
@@ -57,9 +57,6 @@ block scriptsEnd
                             },
                             formatter: function(params) {
                                 var param = params[0][2];
-                                //- console.log( params);
-                                //- var result = 'name: ' + param[2].name + '---'
-                                //- + 'data: ' + param[2].value;
                                 var result = "";
                                 for (key in param) {
                                     result += key + " : " + param[key] +

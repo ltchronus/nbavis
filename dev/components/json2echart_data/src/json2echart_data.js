@@ -21,6 +21,11 @@ define(function(require, exports, module) {
         return sec;
     }
 
+
+    function getScore( end){
+        return end.name.indexOf("Made")>=0?true:false;
+    }
+
     json2echart_data.prototype.getData = function() {
         if (!this._jsonData) {
             return null;
@@ -63,7 +68,6 @@ define(function(require, exports, module) {
                         if (dataItem.name === "Drive") {
                           var tt = dataString2Int(dataItem.end_time) - dataString2Int(dataItem.time);
                           dataItem.value = tt.toFixed(2);
-                          console.log( dataItem.value);
                         }
                         data.push(dataItem);
                     }
@@ -80,7 +84,6 @@ define(function(require, exports, module) {
                     if (dataItem.name === "Drive") {
                           var tt = dataString2Int(dataItem.end_time) - dataString2Int(dataItem.time);
                           dataItem.value = tt.toFixed(2);
-                          console.log( dataItem.value);
                     }
                     data.push(dataItem);
                 }
@@ -108,7 +111,22 @@ define(function(require, exports, module) {
                 this._data['@possessions'].push(play);
             }
         }
-
+        this._data["@fastBreak"] = [];
+        for ( var i = 0, l = this._data["@possessions"].length; i < l; i++){
+            var possession = this._data["@possessions"][i];
+            var begin = possession.data[0],
+                  end    = null;
+            for( var j=1, m = possession.data.length; j < m; j++){
+                end = possession.data[j];
+                if( getScore(end)){
+                    tim = dataString2Int( end.time) - dataString2Int( begin.time);
+                    if( tim <= 8 ){
+                        this._data["@fastBreak"].push(possession);
+                        break;
+                    }
+                }
+            }
+        }
         return this._data;
     };
 
