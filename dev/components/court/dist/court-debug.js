@@ -1,6 +1,5 @@
-define("court/court/1.0.0/court-debug", [ "./ShotchartUi-debug", "d3-debug" ], function(require, exports, module) {
+define("court/court/1.0.0/court-debug", [ "d3-debug" ], function(require, exports, module) {
     /* Dependent on scrollTo jquery plugin*/
-    var ShotchartUi = require("./ShotchartUi-debug");
     var d3 = require("d3-debug");
     // var  ZoneHelper = require('./ZoneHelper');
     // var  color_helper = require('./color_helper');
@@ -17,10 +16,11 @@ define("court/court/1.0.0/court-debug", [ "./ShotchartUi-debug", "d3-debug" ], f
     };
     // New mediator: components: {court background, shot shapes (number/jersey,number/play count/,circle),gameflow,playbyplay,ui elements,players,score }
     var VORPED = {};
-    VORPED.court = function(container_selector, obj_svg) {
+    VORPED.court = function(ratio, container_selector, obj_svg) {
         var court_svg = {};
         var container = {};
         var selector_container_svg = {};
+        var court_ratio = ratio || 1;
         this.court_type = "nba";
         // nba, wnba, college-men, college-women, fiba, high-school
         var width = function(value) {
@@ -36,35 +36,36 @@ define("court/court/1.0.0/court-debug", [ "./ShotchartUi-debug", "d3-debug" ], f
             return court_svg.attr("height");
         };
         this.container = {};
+        var _viewBox = "0 0 " + 1130 * court_ratio + " " + 660 * court_ratio, _threeptstrPath_left = "M" + 0 * court_ratio + "," + 30 * court_ratio + "L" + 169 * court_ratio + "," + 30 * court_ratio + "A" + 285 * court_ratio + " " + 285 * court_ratio + " " + 0 + " " + 0 + " " + 1 + " " + 169 * court_ratio + " " + 570 * court_ratio + "L" + 0 * court_ratio + " " + 570 * court_ratio + "Z", _threeptstrPath_right = "M" + 1128 * court_ratio + "," + 30 * court_ratio + "L" + 959 * court_ratio + "," + 30 * court_ratio + "A" + 285 * court_ratio + " " + 285 * court_ratio + " " + 0 + " " + 0 + " " + 0 + " " + 959 * court_ratio + " " + 570 * court_ratio + "L" + 1128 * court_ratio + " " + 570 * court_ratio + "Z", _halfcourtline = "M" + 564 * court_ratio + " " + 0 * court_ratio + "L" + 564 * court_ratio + " " + 600 * court_ratio;
         this.draw = function(court_id, court_label_text) {
             this.config = {
                 div_container: "#chart",
                 svg: {
-                    width: 1145,
-                    height: 617,
+                    width: 1145 * court_ratio,
+                    height: 617 * court_ratio,
                     "class": "courts",
                     id: court_id,
-                    viewBox: "0 0 1130 660"
+                    viewBox: _viewBox
                 },
                 court_elements: {
                     background: {
                         x: 0,
                         y: 0,
-                        width: 1128,
-                        height: 600,
+                        width: 1128 * court_ratio,
+                        height: 600 * court_ratio,
                         fill: "#e9b875"
                     },
                     outline: {
-                        width: 1128,
-                        height: 600,
+                        width: 1128 * court_ratio,
+                        height: 600 * court_ratio,
                         fill: "none",
                         stroke: "#777",
-                        "stroke-width": 1,
+                        "stroke-width": 2 * court_ratio,
                         "class": "halfcourt"
                     },
                     label: {
-                        x: 20,
-                        y: 450,
+                        x: 20 * court_ratio,
+                        y: 450 * court_ratio,
                         "class": "court_label",
                         fill: "#999"
                     },
@@ -73,136 +74,136 @@ define("court/court/1.0.0/court-debug", [ "./ShotchartUi-debug", "d3-debug" ], f
                         threeptstr_left: {
                             type: "path",
                             attrs: {
-                                d: "M0 30 L169,30 A285 285 0 0 1 169 570 L0 570Z",
+                                d: _threeptstrPath_left,
                                 stroke: stroke_color_courtitems,
                                 fill: "green",
-                                "stroke-width": 4
+                                "stroke-width": 3 * court_ratio
                             }
                         },
                         threeptstr_right: {
                             type: "path",
                             attrs: {
-                                d: "M1128 30 L959,30A285 285 0 0 0 959 570L1128 570Z ",
+                                d: _threeptstrPath_right,
                                 stroke: stroke_color_courtitems,
                                 fill: "green",
-                                "stroke-width": 4
+                                "stroke-width": 3 * court_ratio
                             }
                         },
                         // 绘制限制区
                         restricted_left: {
                             type: "rect",
                             attrs: {
-                                x: 0,
-                                y: 204,
-                                width: 226,
-                                height: 192,
+                                x: 0 * court_ratio,
+                                y: 204 * court_ratio,
+                                width: 226 * court_ratio,
+                                height: 192 * court_ratio,
                                 stroke: stroke_color_courtitems,
                                 fill: "rgba(255,0,0,.7)",
-                                "stroke-width": 4
+                                "stroke-width": 3 * court_ratio
                             }
                         },
                         restricted_right: {
                             type: "rect",
                             attrs: {
-                                x: 900,
-                                y: 204,
-                                width: 226,
-                                height: 192,
+                                x: 900 * court_ratio,
+                                y: 204 * court_ratio,
+                                width: 226 * court_ratio,
+                                height: 192 * court_ratio,
                                 stroke: stroke_color_courtitems,
                                 fill: "rgba(255,0,0,.7)",
-                                "stroke-width": 4
+                                "stroke-width": 3 * court_ratio
                             }
                         },
                         // 绘制油漆区
                         paintleft: {
                             type: "rect",
                             attrs: {
-                                x: 0,
-                                y: 228,
-                                width: 226,
-                                height: 144,
+                                x: 0 * court_ratio,
+                                y: 228 * court_ratio,
+                                width: 226 * court_ratio,
+                                height: 144 * court_ratio,
                                 stroke: stroke_color_courtitems,
                                 fill: "red",
-                                "stroke-width": 4
+                                "stroke-width": 3 * court_ratio
                             }
                         },
                         paintright: {
                             type: "rect",
                             attrs: {
-                                x: 900,
-                                y: 228,
-                                width: 226,
-                                height: 144,
+                                x: 900 * court_ratio,
+                                y: 228 * court_ratio,
+                                width: 226 * court_ratio,
+                                height: 144 * court_ratio,
                                 stroke: stroke_color_courtitems,
                                 fill: "red",
-                                "stroke-width": 4
+                                "stroke-width": 3 * court_ratio
                             }
                         },
                         //绘制篮筐
                         hoopleft: {
                             type: "circle",
                             attrs: {
-                                cx: 63,
-                                cy: 300,
-                                r: 9,
+                                cx: 63 * court_ratio,
+                                cy: 300 * court_ratio,
+                                r: 9 * court_ratio,
                                 stroke: stroke_color_courtitems,
                                 fill: "white",
-                                "stroke-width": 3
+                                "stroke-width": 3 * court_ratio
                             }
                         },
                         hoopright: {
                             type: "circle",
                             attrs: {
-                                cx: 1064,
-                                cy: 300,
-                                r: 9,
+                                cx: 1064 * court_ratio,
+                                cy: 300 * court_ratio,
+                                r: 9 * court_ratio,
                                 stroke: stroke_color_courtitems,
                                 fill: "white",
-                                "stroke-width": 3
+                                "stroke-width": 3 * court_ratio
                             }
                         },
                         // 绘制罚球区
                         paint_circle_left: {
                             type: "circle",
                             attrs: {
-                                cx: 226,
-                                cy: 300,
-                                r: 72,
+                                cx: 226 * court_ratio,
+                                cy: 300 * court_ratio,
+                                r: 72 * court_ratio,
                                 stroke: stroke_color_courtitems,
                                 fill: "none",
-                                "stroke-width": 4
+                                "stroke-width": 3 * court_ratio
                             }
                         },
                         paint_circle_right: {
                             type: "circle",
                             attrs: {
-                                cx: 900,
-                                cy: 300,
-                                r: 72,
+                                cx: 900 * court_ratio,
+                                cy: 300 * court_ratio,
+                                r: 72 * court_ratio,
                                 stroke: stroke_color_courtitems,
                                 fill: "none",
-                                "stroke-width": 4
+                                "stroke-width": 3 * court_ratio
                             }
                         },
                         // 半场线
                         halfcourtline: {
                             type: "path",
                             attrs: {
-                                d: "M564 0L564 600",
+                                d: _halfcourtline,
                                 stroke: stroke_color_courtitems,
                                 fill: "none",
-                                "stroke-width": 4
+                                "stroke-width": 3 * court_ratio
                             }
                         },
                         center_circle: {
                             type: "circle",
                             attrs: {
-                                cx: 564,
-                                cy: 300,
-                                r: 72,
+                                cx: 564 * court_ratio,
+                                cy: 300 * court_ratio,
+                                r: 72 * court_ratio,
                                 stroke: stroke_color_courtitems,
                                 fill: "green",
-                                "stroke-width": 4
+                                "stroke-width": 3 * court_ratio
                             }
                         },
                         // 绘制篮板
@@ -210,19 +211,19 @@ define("court/court/1.0.0/court-debug", [ "./ShotchartUi-debug", "d3-debug" ], f
                         backboard_left: {
                             type: "rect",
                             attrs: {
-                                x: 40,
-                                y: 264,
-                                width: 5,
-                                height: 72
+                                x: 40 * court_ratio,
+                                y: 264 * court_ratio,
+                                width: 5 * court_ratio,
+                                height: 72 * court_ratio
                             }
                         },
                         backboard_right: {
                             type: "rect",
                             attrs: {
-                                x: 1088,
-                                y: 264,
-                                width: 5,
-                                height: 72
+                                x: 1088 * court_ratio,
+                                y: 264 * court_ratio,
+                                width: 5 * court_ratio,
+                                height: 72 * court_ratio
                             }
                         }
                     }
@@ -231,7 +232,8 @@ define("court/court/1.0.0/court-debug", [ "./ShotchartUi-debug", "d3-debug" ], f
             var choose_container_selector = typeof container_selector === "undefined" ? this.config.div_container : container_selector;
             var choose_svg_selector = typeof svg_selector === "undefined" ? this.config.div_container : container_selector;
             var svg = typeof obj_svg === "undefined" ? d3.select(choose_container_selector).append("svg").attr(this.config.svg) : obj_svg;
-            var container = svg.append("g").attr("class", "court_container").attr("transform", "translate(15,15)");
+            var _transform = "translate(" + 15 * court_ratio + "," + 15 * court_ratio + ")";
+            var container = svg.append("g").attr("class", "court_container").attr("transform", _transform);
             var court = container.select("svg.courts");
             var court_label = container.append("text").attr(this.config.court_elements.label).attr("class", "court-label").text(court_label_text);
             var background = container.append("rect").attr(this.config.court_elements.background);
@@ -314,68 +316,4 @@ define("court/court/1.0.0/court-debug", [ "./ShotchartUi-debug", "d3-debug" ], f
         };
     };
     module.exports = VORPED;
-});
-
-define("court/court/1.0.0/ShotchartUi-debug", [], function(require, exports, module) {
-    // var d3 = require('d3');
-    var ShotchartUi = function(courtobj, data) {
-        this.courtobj = courtobj;
-        this.court = {};
-        this.selector = "";
-        this.data = data;
-    };
-    ShotchartUi.prototype = {
-        draw: function() {},
-        show: function(transition_duration) {
-            transition_duration = typeof transition_duration !== "undefined" ? transition_duration : 1e3;
-            this.court.selectAll(this.selector).transition().duration(transition_duration).attr("opacity", 1);
-            return this;
-        },
-        hide: function(transition_duration) {
-            transition_duration = typeof transition_duration !== "undefined" ? transition_duration : 1e3;
-            this.court.selectAll(this.selector).transition().duration(transition_duration).attr("opacity", 0);
-            return this;
-        },
-        filter: function() {},
-        change_baseline: function() {},
-        summarize_stats: function() {},
-        updateData: function() {
-            return false;
-        },
-        label: function(metric) {},
-        fill: function(metric) {},
-        hideLabel: function() {
-            this.court.selectAll(".zone_label").attr("opacity", 0);
-        },
-        showLabel: function() {
-            this.court.selectAll(".zone_label").attr("opacity", 1);
-        },
-        flipLabel: function(court, gz_selector, shotzone_selector) {
-            court.selectAll(gz_selector).each(function(d, i) {
-                // I don't know why, but choosing el.select rebinds the wrong data to shotzone, so do selectAll instead
-                var el = d3.select(this), label = el.selectAll(shotzone_selector + "_label"), label_bbox = label[0][0].getBBox(), label2 = el.selectAll(shotzone_selector + "_label_sec"), label2_bbox = label2[0][0].getBBox();
-                var label_cx = label_bbox.x + label_bbox.width / 2, label_cy = label_bbox.y + label_bbox.height / 2, label2_cx = label2_bbox.x + label2_bbox.width / 2, label2_cy = label2_bbox.y + label2_bbox.height / 2;
-                label.transition().duration(500).attr("transform", "translate(" + label_translate + ",0)");
-                label2.transition().duration(500).attr("transform", "translate(" + label2_translate + ",0)");
-            });
-        },
-        repositionLabels: function(court, gz_selector, shotzone_selector, duration) {
-            duration = typeof duration === "undefined" ? 500 : duration;
-            var that = this;
-            court.selectAll(gz_selector).each(function(d, i) {
-                // I don't know why, but choosing el.select rebinds the wrong data to shotzone, so do selectAll instead
-                var el = d3.select(this), shape = el.selectAll(shotzone_selector), shape_bbox = shape[0][0].getBBox();
-                label = el.selectAll(shotzone_selector + "_label"), label_bbox = label[0][0].getBBox(), 
-                label2 = el.selectAll(shotzone_selector + "_label_sec"), label2_bbox = label2[0][0].getBBox();
-                var label_translate = shape_bbox.x + shape_bbox.width / 2 - label_bbox.x - label_bbox.width / 2, label2_translate = shape_bbox.x + shape_bbox.width / 2 - label2_bbox.x - label2_bbox.width / 2, label_cx = label_bbox.x + label_bbox.width / 2, label_cy = label_bbox.y + label_bbox.height / 2, label2_cx = label2_bbox.x + label2_bbox.width / 2, label2_cy = label2_bbox.y + label2_bbox.height / 2;
-                var label_rotation = "", label2_rotation = "";
-                if (that.courtobj.orientation == "defense") {
-                    label_rotation = "rotate(180 " + label_cx + " " + label_cy + ")";
-                    label2_rotation = "rotate(180 " + label2_cx + " " + label2_cy + ")";
-                }
-                label.transition().duration(duration).attr("transform", "translate(" + label_translate + ",0) " + label_rotation);
-                label2.transition().duration(duration).attr("transform", "translate(" + label2_translate + ",0) " + label2_rotation);
-            });
-        }
-    };
 });

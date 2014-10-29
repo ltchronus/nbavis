@@ -1,4 +1,4 @@
-define("court/court/1.0.0/Zone14-debug", [ "./ShotchartUi-debug", "./ZoneHelper-debug", "./color_helper-debug", "./ShotFilterCrossFilter-debug", "./ShotFilter-debug", "d3-debug" ], function(require, exports, module) {
+define("court/court/1.0.0/Zone14-debug", [ "./ShotchartUi-debug", "d3-debug", "./ZoneHelper-debug", "./color_helper-debug", "./ShotFilterCrossFilter-debug", "./ShotFilter-debug" ], function(require, exports, module) {
     var ShotchartUi = require("./ShotchartUi-debug");
     var ZoneHelper = require("./ZoneHelper-debug");
     var color_helper = require("./color_helper-debug");
@@ -370,8 +370,8 @@ define("court/court/1.0.0/Zone14-debug", [ "./ShotchartUi-debug", "./ZoneHelper-
     module.exports = Zone14;
 });
 
-define("court/court/1.0.0/ShotchartUi-debug", [], function(require, exports, module) {
-    // var d3 = require('d3');
+define("court/court/1.0.0/ShotchartUi-debug", [ "d3-debug" ], function(require, exports, module) {
+    var d3 = require("d3-debug");
     var ShotchartUi = function(courtobj, data) {
         this.courtobj = courtobj;
         this.court = {};
@@ -432,6 +432,7 @@ define("court/court/1.0.0/ShotchartUi-debug", [], function(require, exports, mod
             });
         }
     };
+    module.exports = ShotchartUi;
 });
 
 define("court/court/1.0.0/ZoneHelper-debug", [], function(require, exports, module) {
@@ -494,6 +495,7 @@ define("court/court/1.0.0/ZoneHelper-debug", [], function(require, exports, modu
             return all_zone_shots;
         }
     };
+    exports = module.exports = ZoneHelper;
 });
 
 define("court/court/1.0.0/color_helper-debug", [], function(require, exports, module) {});
@@ -503,7 +505,7 @@ define("court/court/1.0.0/ShotFilterCrossFilter-debug", [ "court/court/1.0.0/Sho
     var ShotFilterCrossFilter = function(data) {
         this.data = data;
     };
-    ShotFilterCrossFilter.prototype = new ShotFilter();
+    // ShotFilterCrossFilter.prototype = new ShotFilter();
     ShotFilterCrossFilter.prototype.constructor = ShotFilterCrossFilter;
     ShotFilterCrossFilter.prototype.format_data = function(data, helper) {
         var shots_by_zone = data.group();
@@ -520,6 +522,7 @@ define("court/court/1.0.0/ShotFilterCrossFilter-debug", [ "court/court/1.0.0/Sho
     ShotFilterCrossFilter.prototype.get_shots = function(data) {
         return data.group().all();
     };
+    exports = module.exports = ShotFilterCrossFilter;
 });
 
 define("court/court/1.0.0/ShotFilter-debug", [], function(require, exports, module) {
@@ -529,4 +532,5 @@ define("court/court/1.0.0/ShotFilter-debug", [], function(require, exports, modu
     ShotFilter.prototype = {
         filter: function() {}
     };
+    exports = module.exports = ShotFilter;
 });

@@ -14,7 +14,7 @@
   position: relative;
   border: 1px solid red;
   float: left;
-  width: 60%;
+  width: 40%;
   height: 580px;
   top: 50px;
   margin: 10px;
@@ -27,11 +27,26 @@
 .event_flow .right {
   position: relative;
   border: 1px solid green;
-  width: 36%;
-  display: flex;
+  width: 56%;
   justify-content: center;
-  resize: both;
   margin: 10px;
   float: right;
   height: 580px;
+}
+/* line 36, ../sass/event.sass */
+.event_flow .right .north {
+  position: relative;
+  height: 64%;
+  border: 1px solid yellow;
+  overflow: hidden;
+  *zoom: 1;
+}
+/* line 41, ../sass/event.sass */
+.event_flow .right .south {
+  position: relative;
+  border: 1px solid blue;
+  height: 35%;
+  justify-content: center;
+  overflow: hidden;
+  *zoom: 1;
 }
