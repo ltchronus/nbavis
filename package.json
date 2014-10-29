@@ -24,6 +24,10 @@
       "jquery": "jquery/jquery/2.1.0/jquery",
       "sea": "seajs/seajs/2.2.1/sea",
       "d3": "gallery/d3/3.4.3/d3"
+    },
+    "devAlias": {
+      "highcharts.css": "alinw/highcharts/3.0.8/highcharts.css",
+      "highcharts": "alinw/highcharts/3.0.8/highcharts"
     }
   }
 }

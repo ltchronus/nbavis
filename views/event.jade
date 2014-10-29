@@ -13,7 +13,7 @@ block content
 
 block scriptsEnd
     script(type="text/javascript", src="/dev/echarts/echarts-plain-original.js")
-    script(type="text/javascript", src="/dev/highcharts/highcharts.src.js")
+    //- script(type="text/javascript", src="/dev/highcharts/highcharts.src.js")
     script.
         var game_data;
 
@@ -25,12 +25,13 @@ block scriptsEnd
                 "Zone14": '/dev/components/court/src/Zone14',
                 'half_court': '/dev/components/court/src/half_court',
                 'd3': '/sea-modules/gallery/d3/3.4.3/d3',
-                'json2echart_data': '/dev/components/json2echart_data/src/json2echart_data'
+                'json2echart_data': '/dev/components/json2echart_data/src/json2echart_data',
+                'highcharts':'/sea-modules/alinw/highcharts/3.0.8/highcharts-debug.js'
             }
         })
 
-        seajs.use(['jquery', 'court', 'd3', 'Zone14', 'half_court', 'json2echart_data'],
-            function($, VORPED, d3, Zone14, half_court, json2echart_data) {
+        seajs.use(['jquery', 'court', 'd3', 'Zone14', 'half_court', 'json2echart_data','highcharts'],
+            function($, VORPED, d3, Zone14, half_court, json2echart_data,highcharts) {
                 var courtWidth = $(".right").width(),
                     ratio = courtWidth / 1140;
                 var courtObj = new VORPED.court(ratio);
