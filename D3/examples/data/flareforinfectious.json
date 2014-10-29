@@ -1,0 +1,151 @@
+{
+	"name": "infectious disease",
+	"children":[
+	{
+	    "name": "class a b",
+		"children":[
+		{
+			"name": "plague",
+			"size": 1},
+		{
+			"name": "cholera",
+			"size": 24},
+		{
+			"name": "SARS",
+			"size": 0},
+		{
+			"name": "AIDS",
+			"size": 20450},
+		{
+			"name": "viral hepatitis",
+			"children": [
+				{
+					"name": "hepatitis A",
+			        "size": 31456
+				},
+				{
+					"name": "hepatitis B",
+			        "size": 1093335
+				},
+				{
+					"name": "hepatitis C",
+			        "size": 173872
+				},
+				{
+					"name": "hepatitis E",
+			        "size": 29202
+				},
+				{
+					"name": "hepatitis non A-E",
+			        "size": 44479
+				}
+			]
+			},
+		{
+			"name": "poliomyelitis",
+			"size": 20},
+		{
+			"name": "H5N1",
+			"size": 1},
+		{
+			"name": "H1N1",
+			"size": 9360},
+		{
+			"name": "measles",
+			"size": 9943},
+		{
+			"name": "songo fever",
+			"size": 10779},
+		{
+			"name": "rabies",
+			"size": 1917},
+		{
+			"name": "epidemic encephalitis B",
+			"size": 1625},
+		{
+			"name": "dengue",
+			"size": 120},
+		{
+			"name": "anthrax",
+			"size": 309},
+		{
+			"name": "bacillary dysenter",
+			"size": 237930},
+		{
+			"name": "phthisis",
+			"size": 953275},
+		{
+			"name": "Typhoid",
+			"size": 11798},
+		{
+			"name": "meningitis",
+			"size": 228},
+		{
+			"name": "pertussis",
+			"size": 2517},
+		{
+			"name": "diphtheria",
+			"size": 0},
+		{
+			"name": "neonatal tetanus",
+			"size": 785},
+		{
+			"name": "scarlatina",
+			"size": 63878},
+		{
+			"name": "brucellosis",
+			"size": 38151},
+		{
+			"name": "gonorrhoea",
+			"size": 97954},
+		{
+			"name": "leptospirosis",
+			"size": 396},
+		{
+			"name": "bilharziasis",
+			"size": 4483},
+		{
+			"name": "malaria",
+			"size": 4088}
+		]
+		},
+		{
+			"name": "class c",
+			"children": [
+				{
+					"name": "influenza",
+					"size": 66133},
+				{
+					"name": "mumps",
+					"size": 454385},
+				{
+					"name": "rubella",
+					"size": 65549},
+				{
+					"name": "conjunctivitis",
+					"size": 34262},
+				{
+					"name": "leprosy",
+					"size": 352},
+				{
+					"name": "typhus fever",
+					"size": 2360},
+				{
+					"name": "kala-azar",
+					"size": 293},
+				{
+					"name": "echinococcosis",
+					"size": 2909},
+				{
+					"name": "filariasis",
+					"size": 1},
+				{
+					"name": "other disease",
+					"size": 836591},
+				{
+					"name": "han-foot-and-mouth",
+					"size": 1619706}
+			]
+		}
+	]
+}

@@ -1,0 +1,35 @@
+{
+ "name": "flare",
+ "children": [
+  {
+   "name": "analytics",
+   "size": 3938},
+  {
+   "name": "animate",
+   "size": 1986},
+  {
+   "name": "data",
+   "size": 5555},
+  {
+   "name": "display",
+   "szie":8833},
+  {
+   "name": "flex",
+   "size": 4113},
+  {
+   "name": "physics",
+   "size": 1082},
+  {
+   "name": "query",
+   "size": 1616},
+  {
+   "name": "scale",
+   "szie": 2105},
+  {
+   "name": "util",
+   "size": 8258},
+  {
+   "name": "vis",
+   "szie": 1302}
+ ]
+}

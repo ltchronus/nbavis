@@ -1,0 +1,76 @@
+{
+    "name": "game",
+    "children": [{
+        "name": "quarter1",
+        "children": [{
+            "name": "event1",
+            "size": 0.0014551
+        }, {
+            "name": "event2",
+            "size": 0.0015338
+        }, {
+            "name": "event3",
+            "size": 0.0010808
+        }, {
+            "name": "event4",
+            "size": 0.0000064
+        }, {
+            "name": "...",
+            "size": 0.0002257
+        }]
+    }, {
+        "name": "quarter2",
+        "children": [{
+            "name": "event1",
+            "size": 0.0014551
+        }, {
+            "name": "event2",
+            "size": 0.0015338
+        }, {
+            "name": "event3",
+            "size": 0.0010808
+        }, {
+            "name": "event4",
+            "size": 0.0000064
+        }, {
+            "name": "...",
+            "size": 0.0002257
+        }]
+    }, {
+        "name": "quarter3",
+        "children": [{
+            "name": "event1",
+            "size": 0.0014551
+        }, {
+            "name": "event2",
+            "size": 0.0015338
+        }, {
+            "name": "event3",
+            "size": 0.0010808
+        }, {
+            "name": "event4",
+            "size": 0.0000064
+        }, {
+            "name": "...",
+            "size": 0.0002257
+        }]
+    }, {
+        "name": "quarter4",
+        "children": [{
+            "name": "event1",
+            "size": 0.0014551
+        }, {
+            "name": "event2",
+            "size": 0.0015338
+        }, {
+            "name": "event3",
+            "size": 0.0010808
+        }, {
+            "name": "event4",
+            "size": 0.0000064
+        }, {
+            "name": "...",
+            "size": 0.0002257
+        }]
+    }]
+}
