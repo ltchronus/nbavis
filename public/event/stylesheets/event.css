@@ -15,7 +15,7 @@
   border: 1px solid red;
   float: left;
   width: 40%;
-  height: 580px;
+  height: 680px;
   top: 50px;
   margin: 10px;
   -moz-transform: translateY(-50px);
@@ -31,7 +31,7 @@
   justify-content: center;
   margin: 10px;
   float: right;
-  height: 580px;
+  height: 680px;
 }
 /* line 36, ../sass/event.sass */
 .event_flow .right .north {

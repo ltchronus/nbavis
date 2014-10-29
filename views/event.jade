@@ -32,7 +32,7 @@ block scriptsEnd
         seajs.use(['jquery', 'court', 'd3', 'Zone14', 'half_court', 'json2echart_data','highcharts'],
             function($, VORPED, d3, Zone14, half_court, json2echart_data,highcharts) {
                 var courtWidth = $(".right").width(),
-                    ratio = courtWidth / 1140;
+                       ratio = courtWidth / 1140;
                 var courtObj = new VORPED.court(ratio);
                 var court = courtObj.draw('court', '');
 
@@ -47,6 +47,7 @@ block scriptsEnd
 
                 $.getJSON('/public/data/game.json', function(nbajson) {
                     game_data = new json2echart_data(nbajson).getData();
+                    console.log( game_data);
                     var height = $('#map')[0].scrollHeight;
                     var option1 = {
                         tooltip: {
@@ -70,7 +71,7 @@ block scriptsEnd
                         legend: {
                             x: 'left',
                             //- y:'bottom',
-                            y: height * 0.88,
+                            y: height * 0.85,
                             data: game_data["@events"]
                         },
                         grid: {
@@ -103,8 +104,6 @@ block scriptsEnd
                         series: game_data["@possessions"]
                     };
                     init_echarts('map', option1);
-
-                    console.log( Highcharts);
 
                     $('#lineChart').highcharts({
                         title: {
