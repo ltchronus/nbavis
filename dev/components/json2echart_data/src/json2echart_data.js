@@ -26,6 +26,34 @@ define(function(require, exports, module) {
         return end.name.indexOf("Made")>=0?true:false;
     }
 
+    function high( even ){
+        var scores = even.score.split("-");
+        var first = +scores[0],
+              second = +scores[1];
+        if( first > second)
+            return 1;
+        else if( first < second)
+            return -1;
+        else
+            return 0;
+    }
+
+    function isReverse( begin, end){
+        if( ( high(end) > 0 && high(begin) < 1) || ( high(end) < 0 && high(begin) >= 0) ){
+            return true;
+        }
+        return false;
+    }
+
+    function getWinnigGoal( begin, end, end_time){
+        var diff = dataString2Int( end_time) -dataString2Int( begin.time);
+        if( diff > 24)
+            return false;
+        else{
+            return isReverse( begin,end);
+        }
+    }
+
     json2echart_data.prototype.getData = function() {
         if (!this._jsonData) {
             return null;
@@ -40,7 +68,7 @@ define(function(require, exports, module) {
             "Foul", "Jump Ball", "Made Free Throw", "Made Shot", "Missed Free Throw",
             "Missed Shot", "Offensive Rebound", "Steal", "Timeout", "Turnover"
         ];
-        this._data['category'] = [];
+        this._data['@category'] = [];
 
         // var  possession =  '';
         var home_id = 0, //主队的possession编号
@@ -95,7 +123,7 @@ define(function(require, exports, module) {
                     away_id++;
                     name = possession["team"] + away_id;
                 }
-                this._data['category'].push(name);
+                this._data['@category'].push(name);
                 play.name = name;
                 play.type = "bar";
                 play["stack"] = "总量";
@@ -111,6 +139,9 @@ define(function(require, exports, module) {
                 this._data['@possessions'].push(play);
             }
         }
+
+
+        //统计快攻
         this._data["@fastBreak"] = [];
         for ( var i = 0, l = this._data["@possessions"].length; i < l; i++){
             var possession = this._data["@possessions"][i];
@@ -127,6 +158,53 @@ define(function(require, exports, module) {
                 }
             }
         }
+
+        // 统计2+1和3+1
+        this._data["@andOne"] = [];
+        for ( var i = 0, l = this._data["@possessions"].length; i < l; i++){
+            var flag = 1;
+            var possession = this._data["@possessions"][i];
+            var   madeShot ,
+                    foul,
+                    free;
+            for( var j = 0, m = possession.data.length; flag&&(j < m-2); j ++){
+                madeShot = possession.data[j];
+                if( madeShot.name.indexOf("Made Shot") > -1){
+                    for ( var k = j+1; flag&&(k < m-1); k++){
+                        foul = possession.data[k];
+                        if( foul.name.indexOf("Foul") > -1){
+                            for( var ki = k+1; flag&&(ki < m); ki++){
+                                free = possession.data[ki];
+                                if( free.name.indexOf("Made Free Throw") > -1){
+                                    this._data["@andOne"].push( possession);
+                                    flag = 0;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        // get the winning goal
+        this._data["@winingGoal"] = [];
+        var l = this._data["@possessions"].length;
+        var gameover_event = this._data["@possessions"][l-1].data;
+        gameover_event = gameover_event[gameover_event.length-1];
+
+        var possessions = this._jsonData.period[this._jsonData.period.length-1].possession;
+        var end_time = "00:12:00.000";
+
+        for ( var i = possessions.length-1; i >=0; i-- ){
+            var possession = possessions[i];
+            var begin = possession.event[0];
+            var end = possession.event[possession.event.length-1];
+            var flag = getWinnigGoal( begin, end, end_time);
+            if( flag ){
+                this._data["@winingGoal"].push( possession );
+            }
+        }
+
         return this._data;
     };
 

@@ -96,10 +96,12 @@ block scriptsEnd
                         }],
                         yAxis: [{
                             type: 'category',
-                            data: game_data["category"]
+                            data: game_data["@category"]
                         }],
                         series: game_data["@possessions"]
                     };
+
+                    console.log( option1 );
                     init_echarts('map', option1);
 
                     $('#lineChart').highcharts({
