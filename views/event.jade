@@ -45,9 +45,12 @@ block scriptsEnd
 
                 d3.select("svg").attr("style", "background-color: white");
 
-                $.getJSON('/public/data/game.json', function(nbajson) {
-                    game_data = new json2echart_data(nbajson).getData();
-                    console.log(game_data);
+                $.when($.ajax('/public/data/game.json'), $.ajax('/public/data/playByPlay.json')).done(function(data1, data2) {
+                    var game_json = data1[0],  playByPlay_json = data2[0];
+                    game_data = new json2echart_data(game_json, playByPlay_json).getData();
+                    console.table(game_json);
+                    console.table(playByPlay_json);
+                    console.table(game_data);
                     var height = $('#map')[0].scrollHeight;
                     var option1 = {
                         tooltip: {
@@ -101,7 +104,6 @@ block scriptsEnd
                         series: game_data["@possessions"]
                     };
 
-                    console.log( option1 );
                     init_echarts('map', option1);
 
                     $('#lineChart').highcharts({

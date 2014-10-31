@@ -2,8 +2,9 @@ define(function(require, exports, module) {
 
     var json2echart_data;
 
-    json2echart_data = function(jsonData) {
+    json2echart_data = function(jsonData, pbpData) {
         this._jsonData = jsonData || '';
+        this._pbpData = pbpData || '';
         this._data = {};
     }
 
@@ -55,10 +56,11 @@ define(function(require, exports, module) {
     }
 
     json2echart_data.prototype.getData = function() {
-        if (!this._jsonData) {
+        if ((!this._jsonData) || (!this._pbpData)) {
             return null;
         }
         this._jsonData = this._jsonData.game;
+        this._pbpData = this._pbpData.game;
         this._data['@home_team'] = this._jsonData['home-team'];
         this._data['@away_team'] = this._jsonData['away-team'];
         this._data['@possessions'] = []; //每次比赛的possession
@@ -204,6 +206,46 @@ define(function(require, exports, module) {
                 this._data["@winingGoal"].push( possession );
             }
         }
+
+        this._data['@3pts'] = [];
+        // for ( var i = 0, l = this._pbpData["@quarter"]; i < l; i++){
+        //     var events = this._pbpData.quarter[i].events.event;
+        //     for( var j = 0, m = events.length; j < m; j++){
+        //         var eventItem = events[j];
+
+        //     }
+        // }
+        for ( var i = 0, l = this._data['@possessions'].length; i < l; i++){
+            var possession = this._data['@possessions'][i];
+            for( var j = 0, m = possession.data.length; j < m; j++){
+                var eventItem = possession.data[j];
+                if( eventItem.shottype&&eventItem.shottype === '3'){
+                    this._data['@3pts'].push( possession);
+                    break;
+                }
+            }
+        }
+
+
+        this._data['@2pts'] = [];
+        // for ( var i = 0, l = this._pbpData["@quarter"]; i < l; i++){
+        //     var events = this._pbpData.quarter[i].events.event;
+        //     for( var j = 0, m = events.length; j < m; j++){
+        //         var eventItem = events[j];
+
+        //     }
+        // }
+        for ( var i = 0, l = this._data['@possessions'].length; i < l; i++){
+            var possession = this._data['@possessions'][i];
+            for( var j = 0, m = possession.data.length; j < m; j++){
+                var eventItem = possession.data[j];
+                if( eventItem.shottype&&eventItem.shottype === '2'){
+                    this._data['@2pts'].push( possession);
+                    break;
+                }
+            }
+        }
+
 
         return this._data;
     };
