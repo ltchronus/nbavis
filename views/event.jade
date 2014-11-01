@@ -14,8 +14,8 @@ block content
 block scriptsEnd
     script(type="text/javascript", src="/dev/echarts/echarts-plain-original.js")
     script.
-        var game_data;
-
+        var game_data,
+              ratio;
         seajs.config({
             alias: {
                 'jquery': '/sea-modules/jquery/jquery/2.1.0/jquery',
@@ -31,8 +31,8 @@ block scriptsEnd
 
         seajs.use(['jquery', 'court', 'd3', 'Zone14', 'half_court', 'json2echart_data','highcharts'],
             function($, VORPED, d3, Zone14, half_court, json2echart_data,highcharts) {
-                var courtWidth = $(".right").width(),
-                       ratio = courtWidth / 1140;
+                var courtWidth = $(".right").width();
+                ratio = courtWidth / 1140;
                 var courtObj = new VORPED.court(ratio);
                 var court = courtObj.draw('court', '');
 
@@ -45,14 +45,13 @@ block scriptsEnd
 
                 d3.select("svg").attr("style", "background-color: white");
 
-                $.when($.ajax('/public/data/game.json'), $.ajax('/public/data/playByPlay.json')).done(function(data1, data2) {
-                    var game_json = data1[0],  playByPlay_json = data2[0];
-                    game_data = new json2echart_data(game_json, playByPlay_json).getData();
-                    console.table(game_json);
-                    console.table(playByPlay_json);
-                    console.table(game_data);
+
+                //- $.getJSON('/public/data/POR_DAL_location.json', function( data){
+                $.getJSON('/public/data/11-1.json', function( data){
+                    game_data = new json2echart_data( data).getData();
+                    console.log( game_data );
                     var height = $('#map')[0].scrollHeight;
-                    var option1 = {
+                    var option = {
                         tooltip: {
                             trigger: 'axis',
                             axisPointer: { // 坐标轴指示器，坐标轴触发有效
@@ -70,16 +69,10 @@ block scriptsEnd
                         },
                         legend: {
                             x: 'left',
-                            //- y:'bottom',
                             y: height * 0.85,
                             data: game_data["@events"]
                         },
                         grid: {
-                            //- height:height,
-                            //- x:50,
-                            //- y:50,
-                            //- x2:50,
-                            //- y2:50
                             height: height * 0.72
                         },
                         dataZoom: {
@@ -104,7 +97,7 @@ block scriptsEnd
                         series: game_data["@possessions"]
                     };
 
-                    init_echarts('map', option1);
+                    init_echarts('map', option);
 
                     $('#lineChart').highcharts({
                         title: {
@@ -154,6 +147,8 @@ block scriptsEnd
                         }]
                     });
 
+                    court = draw(court, game_data["@fastBreak"][1]);
+                    console.log( court );
                 });
             })
 
@@ -162,4 +157,90 @@ block scriptsEnd
 
             var myChart = echarts.init(map);
             myChart.setOption(option);
+        }
+
+        function draw( court, possession){
+            for( var i = 0, l = possession.data.length; i < l; i++){
+                var item = possession.data[i];
+                drawGraph( court, item);
+                if( i > 0 && item.location ){
+                    for( var j = i-1; j >= 0; j--){
+                        if( possession.data[j].location){
+                            drawLine( court, possession.data[j], item);
+                            break;
+                        }
+                    }
+                }
+            }
+            return court;
+        }
+
+        function drawLine( court, item1, item2){
+            //- if( item1.location&&item2.location){
+            console.log( court );
+                var r = 14;
+                var x1 = 0.05*(+item2.location["@coord_x"]) +0.95*(+item1.location["@coord_x"]),
+                      y1 = 0.05*(+item2.location["@coord_y"]) +0.95*(+item1.location["@coord_y"]),
+                      x2 = 0.95*(+item2.location["@coord_x"]) +0.05*(+item1.location["@coord_x"]),
+                      y2 = 0.95*(+item2.location["@coord_y"]) +0.05*(+item1.location["@coord_y"]);
+                var alpha = ( (+item2.location["@coord_y"]) - (+item1.location["@coord_y"]) ) / ( (+item2.location["@coord_x"]) - (+item1.location["@coord_x"]));
+                var config = {};
+                config = {type:'path',attrs:{'d':'M '+x1*ratio+' '+y1*ratio+' L '+x2*ratio+' '+y2*ratio,'stroke':'#32cd32','fill':'#32cd32','stroke-width':3*ratio}};
+                court.append(config.type).attr(config.attrs);
+                console.log(alpha);
+                config = {type:'path',attrs:{'d':'M '+(x2 - r*Math.sin(alpha))*ratio+' '+(y2 +r*Math.cos(alpha) )*ratio+' L '+x2*ratio+' '+y2*ratio+' L '+(x2+r*Math.sin(alpha))*ratio+' '+(y2-r*Math.cos(alpha))*ratio+' ','stroke':'#32cd32','fill':'#32cd32','stroke-width':3*ratio}};
+                court.append(config.type).attr(config.attrs);
+            //- }
+            //- return;
+        }
+
+
+        function drawGraph( court, item){
+            var key = item.name;
+            var config = {};
+            var r = 7;
+            switch( key){
+                //- case "Drive" :
+                    //- config = {type:'circle',attrs{'cx':item.location["@coord_x"]*ratio,'cy':300*ratio,'r':72*ratio,'stroke':'#ccc','fill':'#fff','stroke-width':3*ratio}};
+                    //- court.append(config.type).attr(config.attrs);
+                    //- break;
+                case "Block" :
+                    config = {type:'path',attrs:{'d':'M '+(+(item.location["@coord_x"])-0.5*r)*ratio+' '+(+(item.location["@coord_y"])-0.5*r)*ratio+' L '+(+(item.location["@coord_x"])+0.5*r)*ratio+' '+(+(item.location["@coord_y"])-0.5*r)*ratio+' L '+(+(item.location["@coord_x"])+0.5*r)*ratio+' '+(+(item.location["@coord_y"])+0.5*r)*ratio+' L '+(+(item.location["@coord_x"])-0.5*r)*ratio+' '+(+(item.location["@coord_y"])+0.5*r)*ratio+'z','stroke':'#87cefa','fill':'#87cefa','stroke-width':3*ratio}};
+                    court.append(config.type).attr(config.attrs);
+                    break;
+                case "Dead Ball" :
+                     config = {type:'circle',attrs:{'cx':item.location["@coord_x"]*ratio,'cy':item.location["@coord_y"]*ratio,'r':r*ratio,'stroke':'#ccc','fill':'#fff','stroke-width':3*ratio}};
+                    court.append(config.type).attr(config.attrs);
+                    break;
+                case "Defensive Rebound" :
+                     config = {type:'path',attrs:{'d':'M '+(+(item.location["@coord_x"])-0.866*r)*ratio+' '+(+(item.location["@coord_y"])+0.500*r)*ratio+' L '+(+(item.location["@coord_x"])+0.866*r)*ratio+' '+(+(item.location["@coord_y"])+0.500*r)*ratio+' L '+(+(item.location["@coord_x"])*ratio)+' '+(+(item.location["@coord_y"])-r)*ratio+'z','stroke':'#32cd32','fill':'#32cd32','stroke-width':3*ratio}};
+                    court.append(config.type).attr(config.attrs);
+                    break;
+                case "Offensive Rebound" :
+                    config = {type:'path',attrs:{'d':'M '+(+(item.location["@coord_x"])-0.866*r)*ratio+' '+(+(item.location["@coord_y"])+0.500*r)*ratio+' L '+(+(item.location["@coord_x"])+0.866*r)*ratio+' '+(+(item.location["@coord_y"])+0.500*r)*ratio+' L '+(+(item.location["@coord_x"])*ratio)+' '+(+(item.location["@coord_y"])-r)*ratio+'z','stroke':'#ff6347','fill':'#ff6347','stroke-width':3*ratio}};
+                    court.append(config.type).attr(config.attrs);
+                    break;
+                case "Made Shot" :
+                     config = {type:'circle',attrs:{'cx':item.location["@coord_x"]*ratio,'cy':item.location["@coord_y"]*ratio,'r':r*ratio,'stroke':'#ffa500','fill':'#ffa500','stroke-width':3*ratio}};
+                    court.append(config.type).attr(config.attrs);
+                    break;
+                case "Missed Shot" :
+                    config = {type:'circle',attrs:{'cx':item.location["@coord_x"]*ratio,'cy':item.location["@coord_y"]*ratio,'r':r*ratio,'stroke':'#1e90ff','fill':'#fff','stroke-width':3*ratio}};
+                    court.append(config.type).attr(config.attrs);
+                    break;
+
+                case "Foul" :
+                    config = {type:'path',attrs:{'d':'M '+(+(item.location["@coord_x"])-0.5*r)*ratio+' '+(+(item.location["@coord_y"])-0.5*r)*ratio+' L '+(+(item.location["@coord_x"])+0.5*r)*ratio+' '+(+(item.location["@coord_y"])+0.5*r)*ratio+'M '+(+(item.location["@coord_x"])+0.5*r)*ratio+' '+(+(item.location["@coord_y"])-0.5*r)*ratio+' L '+(+(item.location["@coord_x"]) -0.5*r)*ratio+' '+(+(item.location["@coord_y"])+0.5*r)*ratio,'stroke':'#ff69b4','fill':'#ff69b4','stroke-width':3*ratio}};
+                    court.append(config.type).attr(config.attrs);
+                    break;
+                case "Steal" :
+                     config = {type:'path',attrs:{'d':'M '+(+(item.location["@coord_x"])-0.866*r)*ratio+' '+(+(item.location["@coord_y"])-0.500*r)*ratio+' L '+(+(item.location["@coord_x"])+0.866*r)*ratio+' '+(+(item.location["@coord_y"])-0.500*r)*ratio+' L '+(+(item.location["@coord_x"])*ratio)+' '+(+(item.location["@coord_y"])+r)*ratio+'z','stroke':'#7b68ee','fill':'#7b68ee','stroke-width':3*ratio}};
+                    court.append(config.type).attr(config.attrs);
+                    break;
+
+                case "Turnover" :
+                    config = {type:'path',attrs:{'d':'M '+(+(item.location["@coord_x"]))*ratio+' '+(+(item.location["@coord_y"])-0.72*r)*ratio+' L '+(+(item.location["@coord_x"])+0.72*r)*ratio+' '+(+(item.location["@coord_y"]))*ratio+' L '+(+(item.location["@coord_x"]))*ratio+' '+(+(item.location["@coord_y"])+0.72*r)*ratio+' L '+(+(item.location["@coord_x"]) -0.72*r)*ratio+' '+(+(item.location["@coord_y"]))*ratio,'stroke':'#ffd700','fill':'#ffd700','stroke-width':3*ratio}};
+                    court.append(config.type).attr(config.attrs);
+                    break;
+            }
         }

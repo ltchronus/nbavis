@@ -4,7 +4,7 @@ define(function(require, exports, module) {
 
     json2echart_data = function(jsonData, pbpData) {
         this._jsonData = jsonData || '';
-        this._pbpData = pbpData || '';
+        // this._pbpData = pbpData || '';
         this._data = {};
     }
 
@@ -56,17 +56,20 @@ define(function(require, exports, module) {
     }
 
     json2echart_data.prototype.getData = function() {
-        if ((!this._jsonData) || (!this._pbpData)) {
+        // if ((!this._jsonData) || (!this._pbpData)) {
+        if (!this._jsonData) {
             return null;
         }
         this._jsonData = this._jsonData.game;
-        this._pbpData = this._pbpData.game;
+        // this._pbpData = this._pbpData.game;
         this._data['@home_team'] = this._jsonData['home-team'];
         this._data['@away_team'] = this._jsonData['away-team'];
         this._data['@possessions'] = []; //每次比赛的possession
         //每次比赛event类型数据
         this._data['@events'] = [
-            "Drive", "Block", "Dead Ball", "Defensive Rebound", "End of Game", "End of Period",
+            "Drive", "Block",
+            // "Dead Ball",
+            "Defensive Rebound", "End of Game", "End of Period",
             "Foul", "Jump Ball", "Made Free Throw", "Made Shot", "Missed Free Throw",
             "Missed Shot", "Offensive Rebound", "Steal", "Timeout", "Turnover"
         ];
@@ -208,13 +211,6 @@ define(function(require, exports, module) {
         }
 
         this._data['@3pts'] = [];
-        // for ( var i = 0, l = this._pbpData["@quarter"]; i < l; i++){
-        //     var events = this._pbpData.quarter[i].events.event;
-        //     for( var j = 0, m = events.length; j < m; j++){
-        //         var eventItem = events[j];
-
-        //     }
-        // }
         for ( var i = 0, l = this._data['@possessions'].length; i < l; i++){
             var possession = this._data['@possessions'][i];
             for( var j = 0, m = possession.data.length; j < m; j++){
@@ -228,13 +224,6 @@ define(function(require, exports, module) {
 
 
         this._data['@2pts'] = [];
-        // for ( var i = 0, l = this._pbpData["@quarter"]; i < l; i++){
-        //     var events = this._pbpData.quarter[i].events.event;
-        //     for( var j = 0, m = events.length; j < m; j++){
-        //         var eventItem = events[j];
-
-        //     }
-        // }
         for ( var i = 0, l = this._data['@possessions'].length; i < l; i++){
             var possession = this._data['@possessions'][i];
             for( var j = 0, m = possession.data.length; j < m; j++){
