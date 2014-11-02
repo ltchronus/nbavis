@@ -188,7 +188,7 @@ block scriptsEnd
                 config = {type:'path',attrs:{'d':'M '+x1*ratio+' '+y1*ratio+' L '+x2*ratio+' '+y2*ratio,'stroke':'#32cd32','fill':'#32cd32','stroke-width':3*ratio}};
                 court.append(config.type).attr(config.attrs);
                 console.log(alpha);
-                config = {type:'path',attrs:{'d':'M '+(x2 - r*Math.sin(alpha))*ratio+' '+(y2 +r*Math.cos(alpha) )*ratio+' L '+x2*ratio+' '+y2*ratio+' L '+(x2+r*Math.sin(alpha))*ratio+' '+(y2-r*Math.cos(alpha))*ratio+' ','stroke':'#32cd32','fill':'#32cd32','stroke-width':3*ratio}};
+                config = {type:'path',attrs:{'d':'M '+(x2 - r*(0.867*Math.cos(alpha)+0.5*Math.sin(alpha)))*ratio+' '+(y2 +r*(0.5*Math.cos(alpha)-0.867*Math.sin(alpha) ) )*ratio+' L '+x2*ratio+' '+y2*ratio+' L '+(x2-r*(0.867*Math.cos(alpha)-0.867*Math.sin(alpha)))*ratio+' '+(y2-r*(0.5*Math.cos(alpha)+0.867*Math.sin(alpha)))*ratio+' ','stroke':'#32cd32','fill':'#32cd32','stroke-width':3*ratio}};
                 court.append(config.type).attr(config.attrs);
             //- }
             //- return;
