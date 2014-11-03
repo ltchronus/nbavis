@@ -23,35 +23,35 @@ define(function(require, exports, module) {
     }
 
 
-    function getScore( end){
-        return end.name.indexOf("Made")>=0?true:false;
+    function getScore(end) {
+        return end.name.indexOf("Made") >= 0 ? true : false;
     }
 
-    function high( even ){
+    function high(even) {
         var scores = even.score.split("-");
         var first = +scores[0],
-              second = +scores[1];
-        if( first > second)
+            second = +scores[1];
+        if (first > second)
             return 1;
-        else if( first < second)
+        else if (first < second)
             return -1;
         else
             return 0;
     }
 
-    function isReverse( begin, end){
-        if( ( high(end) > 0 && high(begin) < 1) || ( high(end) < 0 && high(begin) >= 0) ){
+    function isReverse(begin, end) {
+        if ((high(end) > 0 && high(begin) < 1) || (high(end) < 0 && high(begin) >= 0)) {
             return true;
         }
         return false;
     }
 
-    function getWinnigGoal( begin, end, end_time){
-        var diff = dataString2Int( end_time) -dataString2Int( begin.time);
-        if( diff > 24)
+    function getWinnigGoal(begin, end, end_time) {
+        var diff = dataString2Int(end_time) - dataString2Int(begin.time);
+        if (diff > 24)
             return false;
-        else{
-            return isReverse( begin,end);
+        else {
+            return isReverse(begin, end);
         }
     }
 
@@ -69,7 +69,7 @@ define(function(require, exports, module) {
         this._data['@events'] = [
             "Drive", "Block",
             // "Dead Ball",
-            "Defensive Rebound", "End of Game", "End of Period",
+            "Defensive Rebound", "End of Period",
             "Foul", "Jump Ball", "Made Free Throw", "Made Shot", "Missed Free Throw",
             "Missed Shot", "Offensive Rebound", "Steal", "Timeout", "Turnover"
         ];
@@ -99,8 +99,8 @@ define(function(require, exports, module) {
                         }
                         dataItem.value = 3.00;
                         if (dataItem.name === "Drive") {
-                          var tt = dataString2Int(dataItem.end_time) - dataString2Int(dataItem.time);
-                          dataItem.value = tt.toFixed(2);
+                            var tt = dataString2Int(dataItem.end_time) - dataString2Int(dataItem.time);
+                            dataItem.value = tt.toFixed(2);
                         }
                         data.push(dataItem);
                     }
@@ -115,8 +115,8 @@ define(function(require, exports, module) {
                     }
                     dataItem.value = 3.00;
                     if (dataItem.name === "Drive") {
-                          var tt = dataString2Int(dataItem.end_time) - dataString2Int(dataItem.time);
-                          dataItem.value = tt.toFixed(2);
+                        var tt = dataString2Int(dataItem.end_time) - dataString2Int(dataItem.time);
+                        dataItem.value = tt.toFixed(2);
                     }
                     data.push(dataItem);
                 }
@@ -148,15 +148,15 @@ define(function(require, exports, module) {
 
         //统计快攻
         this._data["@fastBreak"] = [];
-        for ( var i = 0, l = this._data["@possessions"].length; i < l; i++){
+        for (var i = 0, l = this._data["@possessions"].length; i < l; i++) {
             var possession = this._data["@possessions"][i];
             var begin = possession.data[0],
-                  end    = null;
-            for( var j=1, m = possession.data.length; j < m; j++){
+                end = null;
+            for (var j = 1, m = possession.data.length; j < m; j++) {
                 end = possession.data[j];
-                if( getScore(end)){
-                    tim = dataString2Int( end.time) - dataString2Int( begin.time);
-                    if( tim <= 8 ){
+                if (getScore(end)) {
+                    tim = dataString2Int(end.time) - dataString2Int(begin.time);
+                    if (tim <= 8) {
                         this._data["@fastBreak"].push(possession);
                         break;
                     }
@@ -166,22 +166,22 @@ define(function(require, exports, module) {
 
         // 统计2+1和3+1
         this._data["@andOne"] = [];
-        for ( var i = 0, l = this._data["@possessions"].length; i < l; i++){
+        for (var i = 0, l = this._data["@possessions"].length; i < l; i++) {
             var flag = 1;
             var possession = this._data["@possessions"][i];
-            var   madeShot ,
-                    foul,
-                    free;
-            for( var j = 0, m = possession.data.length; flag&&(j < m-2); j ++){
+            var madeShot,
+                foul,
+                free;
+            for (var j = 0, m = possession.data.length; flag && (j < m - 2); j++) {
                 madeShot = possession.data[j];
-                if( madeShot.name.indexOf("Made Shot") > -1){
-                    for ( var k = j+1; flag&&(k < m-1); k++){
+                if (madeShot.name.indexOf("Made Shot") > -1) {
+                    for (var k = j + 1; flag && (k < m - 1); k++) {
                         foul = possession.data[k];
-                        if( foul.name.indexOf("Foul") > -1){
-                            for( var ki = k+1; flag&&(ki < m); ki++){
+                        if (foul.name.indexOf("Foul") > -1) {
+                            for (var ki = k + 1; flag && (ki < m); ki++) {
                                 free = possession.data[ki];
-                                if( free.name.indexOf("Made Free Throw") > -1){
-                                    this._data["@andOne"].push( possession);
+                                if (free.name.indexOf("Made Free Throw") > -1) {
+                                    this._data["@andOne"].push(possession);
                                     flag = 0;
                                 }
                             }
@@ -194,29 +194,29 @@ define(function(require, exports, module) {
         // get the winning goal
         this._data["@winingGoal"] = [];
         var l = this._data["@possessions"].length;
-        var gameover_event = this._data["@possessions"][l-1].data;
-        gameover_event = gameover_event[gameover_event.length-1];
+        var gameover_event = this._data["@possessions"][l - 1].data;
+        gameover_event = gameover_event[gameover_event.length - 1];
 
-        var possessions = this._jsonData.period[this._jsonData.period.length-1].possession;
+        var possessions = this._jsonData.period[this._jsonData.period.length - 1].possession;
         var end_time = "00:12:00.000";
 
-        for ( var i = possessions.length-1; i >=0; i-- ){
+        for (var i = possessions.length - 1; i >= 0; i--) {
             var possession = possessions[i];
             var begin = possession.event[0];
-            var end = possession.event[possession.event.length-1];
-            var flag = getWinnigGoal( begin, end, end_time);
-            if( flag ){
-                this._data["@winingGoal"].push( possession );
+            var end = possession.event[possession.event.length - 1];
+            var flag = getWinnigGoal(begin, end, end_time);
+            if (flag) {
+                this._data["@winingGoal"].push(possession);
             }
         }
 
         this._data['@3pts'] = [];
-        for ( var i = 0, l = this._data['@possessions'].length; i < l; i++){
+        for (var i = 0, l = this._data['@possessions'].length; i < l; i++) {
             var possession = this._data['@possessions'][i];
-            for( var j = 0, m = possession.data.length; j < m; j++){
+            for (var j = 0, m = possession.data.length; j < m; j++) {
                 var eventItem = possession.data[j];
-                if( eventItem.shottype&&eventItem.shottype === '3'){
-                    this._data['@3pts'].push( possession);
+                if (eventItem.shottype && eventItem.shottype === '3') {
+                    this._data['@3pts'].push(possession);
                     break;
                 }
             }
@@ -224,16 +224,17 @@ define(function(require, exports, module) {
 
 
         this._data['@2pts'] = [];
-        for ( var i = 0, l = this._data['@possessions'].length; i < l; i++){
+        for (var i = 0, l = this._data['@possessions'].length; i < l; i++) {
             var possession = this._data['@possessions'][i];
-            for( var j = 0, m = possession.data.length; j < m; j++){
+            for (var j = 0, m = possession.data.length; j < m; j++) {
                 var eventItem = possession.data[j];
-                if( eventItem.shottype&&eventItem.shottype === '2'){
-                    this._data['@2pts'].push( possession);
+                if (eventItem.shottype && eventItem.shottype === '2') {
+                    this._data['@2pts'].push(possession);
                     break;
                 }
             }
         }
+
 
 
         return this._data;

@@ -1,52 +1,158 @@
-/* line 11, ../sass/event.sass */
+/* line 12, ../sass/event.sass */
 .event_flow {
   border: 1px solid #ccc;
-  top: 50px;
   margin: 10px;
-  position: relative;
   padding: 10px auto;
-  *zoom: 1;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
   overflow: hidden;
   *zoom: 1;
+  margin-top: 50px;
 }
 /* line 19, ../sass/event.sass */
+.event_flow .ctrl_btns {
+  position: fixed;
+  top: 44px;
+  z-index: 1000;
+  font-size: 18px;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  background-color: #18bc9c;
+  left: -1px;
+  right: -1px;
+  -moz-border-radius-topleft: 3px;
+  -webkit-border-top-left-radius: 3px;
+  border-top-left-radius: 3px;
+  -moz-border-radius-topright: 3px;
+  -webkit-border-top-right-radius: 3px;
+  border-top-right-radius: 3px;
+}
+/* line 31, ../sass/event.sass */
+.event_flow .ctrl_btns ul {
+  color: #fff;
+}
+/* line 33, ../sass/event.sass */
+.event_flow .ctrl_btns ul li {
+  display: inline-block;
+  *zoom: 1;
+  height: 32px;
+  line-height: 32px;
+  list-style-image: none;
+  list-style-type: none;
+  margin-left: 0;
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  *zoom: 1;
+  *display: inline;
+  white-space: nowrap;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+/* line 39, ../sass/event.sass */
+.event_flow .ctrl_btns ul li span {
+  height: 28px;
+  line-height: 28px;
+  display: inline-block;
+  padding: 0 10px;
+}
+/* line 44, ../sass/event.sass */
+.event_flow .ctrl_btns ul li input {
+  display: inline-block;
+  height: 23px;
+  line-height: 23px;
+  padding: 0;
+  border: 0;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+}
+/* line 52, ../sass/event.sass */
+.event_flow .ctrl_btns ul li select {
+  width: 160px;
+  height: 28px;
+  line-height: 28px;
+  margin: auto 0;
+  margin-top: -2px;
+  background-color: #18bc9c;
+  border-color: #18bc9c;
+  border: 0;
+  color: #fff;
+  font-size: 14px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+}
+/* line 64, ../sass/event.sass */
+.event_flow .ctrl_btns ul li select:visited {
+  border: 0;
+}
+/* line 66, ../sass/event.sass */
+.event_flow .ctrl_btns ul li select:active {
+  border: 0;
+}
+/* line 68, ../sass/event.sass */
+.event_flow .ctrl_btns ul li select:focus {
+  border: 0;
+}
+/* line 70, ../sass/event.sass */
+.event_flow .ctrl_btns ul li select option {
+  display: inline-block;
+  height: 28px;
+  line-height: 28px;
+  font-size: 14px;
+  margin: 5px 0;
+}
+/* line 77, ../sass/event.sass */
 .event_flow .left {
   position: relative;
-  border: 1px solid red;
   float: left;
   width: 40%;
-  height: 680px;
+  height: 720px;
   top: 50px;
-  margin: 10px;
-  -moz-transform: translateY(-50px);
-  -ms-transform: translateY(-50px);
-  -webkit-transform: translateY(-50px);
-  transform: translateY(-50px);
+  margin: 5px;
+  margin-top: -30px;
 }
-/* line 28, ../sass/event.sass */
+/* line 85, ../sass/event.sass */
 .event_flow .right {
   position: relative;
-  border: 1px solid green;
-  width: 56%;
+  width: 57%;
   justify-content: center;
-  margin: 10px;
   float: right;
-  height: 680px;
+  border-left: 1px solid #ccc;
+  height: 700px;
 }
-/* line 36, ../sass/event.sass */
+/* line 92, ../sass/event.sass */
 .event_flow .right .north {
   position: relative;
-  height: 64%;
-  border: 1px solid yellow;
+  height: 56%;
+  margin-top: 80px;
+  border-bottom: 1px solid #ccc;
   overflow: hidden;
   *zoom: 1;
 }
-/* line 41, ../sass/event.sass */
+/* line 98, ../sass/event.sass */
 .event_flow .right .south {
   position: relative;
-  border: 1px solid blue;
-  height: 35%;
+  margin: 0px auto;
+  width: 92%;
+  height: 42%;
   justify-content: center;
   overflow: hidden;
   *zoom: 1;
+}
+
+/* line 105, ../sass/event.sass */
+.tooltip {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.701);
+  color: white;
+  font-size: 12px;
+  padding: 5px;
+  line-height: 18px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  z-index: 1000;
 }

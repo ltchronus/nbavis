@@ -5,6 +5,60 @@ block links
 
 block content
     div(class='event_flow')
+        div(id='ctrl_btn',class="ctrl_btns")
+            ul
+                li
+                    span EventFlow
+                    select
+                        option(value="HomeTeam") HomeTeam
+                        option(value="LaMarcus Aldridge") LaMarcus Aldridge
+                        option(value="Robin Lopez") Robin Lopez
+                        option(value="Nicolas Batum") Nicolas Batum
+                        option(value="Damian Lillard") Damian Lillard
+                        option(value="Wesley Matthews") Wesley Matthews
+                        option(value="hr") ----------------
+                        option(value="AwayTeam") AwayTeam
+                        option(value="Dirk Nowitzki") Dirk Nowitzki
+                        option(value="DeJuan Blair") DeJuan Blair
+                        option(value="Monta Ellis") Monta Ellis
+                        option(value="Jose Calderon") Jose Calderon
+                        option(value="Shawn Marion") Shawn Marion
+                li
+                    span Court
+                    select
+                        option(value="Made Shot") Made Shot
+                        option(value="Missed Shot") Missed Shot
+                        option(value="Made Free Throw") Made Free Throw
+                        option(value="Missed Free Throw") Missed Free Throw
+                        option(value="Defensive Rebound") Defensive Rebound
+                        option(value="Offensive Rebound") Offensive Rebound
+                        option(value="Block") Block
+                        option(value="Foul") Foul
+                        option(value="Steal") Steal
+                        option(value="Turnover") Turnover
+                        option(value="FastBeak") FastBeak
+                        option(value="WiningGoal") WiningGoal
+                        option(value="3PonitsPlay") 3PonitsPlay
+                li
+                    span Analysis
+                    select
+                        option(value="HomeTeam") HomeTeam
+                        option(value="LaMarcus Aldridge") LaMarcus Aldridge
+                        option(value="Robin Lopez") Robin Lopez
+                        option(value="Nicolas Batum") Nicolas Batum
+                        option(value="Damian Lillard") Damian Lillard
+                        option(value="Wesley Matthews") Wesley Matthews
+                        option(value="hr") ----------------
+                        option(value="AwayTeam") AwayTeam
+                        option(value="Dirk Nowitzki") Dirk Nowitzki
+                        option(value="DeJuan Blair") DeJuan Blair
+                        option(value="Monta Ellis") Monta Ellis
+                        option(value="Jose Calderon") Jose Calderon
+                        option(value="Shawn Marion") Shawn Marion
+                    span StartTime
+                    input(type="text")
+                    span EndTime
+                    input(type="text")
         div(id='map',class='left')
         div(id='charts',class='right')
             div(id='chart',class='north')
@@ -15,7 +69,8 @@ block scriptsEnd
     script(type="text/javascript", src="/dev/echarts/echarts-plain-original.js")
     script.
         var game_data,
-              ratio;
+              ratio,
+              D3;
         seajs.config({
             alias: {
                 'jquery': '/sea-modules/jquery/jquery/2.1.0/jquery',
@@ -33,6 +88,7 @@ block scriptsEnd
             function($, VORPED, d3, Zone14, half_court, json2echart_data,highcharts) {
                 var courtWidth = $(".right").width();
                 ratio = courtWidth / 1140;
+                D3 = d3;
                 var courtObj = new VORPED.court(ratio);
                 var court = courtObj.draw('court', '');
 
@@ -48,6 +104,7 @@ block scriptsEnd
 
                 //- $.getJSON('/public/data/POR_DAL_location.json', function( data){
                 $.getJSON('/public/data/11-1.json', function( data){
+                    console.log(data);
                     game_data = new json2echart_data( data).getData();
                     console.log( game_data );
                     var height = $('#map')[0].scrollHeight;
@@ -147,8 +204,11 @@ block scriptsEnd
                         }]
                     });
 
+                    //- for( var i = 0, l = game_data["@possessions"].length; i < l; i++){
+                    //-     var possession = game_data["@possessions"][i];
                     court = draw(court, game_data["@fastBreak"][1]);
-                    console.log( court );
+                        //- court = draw(court, possession);
+                    //- }
                 });
             })
 
@@ -177,7 +237,6 @@ block scriptsEnd
 
         function drawLine( court, item1, item2){
             //- if( item1.location&&item2.location){
-            console.log( court );
                 var r = 14;
                 var x1 = 0.05*(+item2.location["@coord_x"]) +0.95*(+item1.location["@coord_x"]),
                       y1 = 0.05*(+item2.location["@coord_y"]) +0.95*(+item1.location["@coord_y"]),
@@ -185,10 +244,9 @@ block scriptsEnd
                       y2 = 0.95*(+item2.location["@coord_y"]) +0.05*(+item1.location["@coord_y"]);
                 var alpha = ( (+item2.location["@coord_y"]) - (+item1.location["@coord_y"]) ) / ( (+item2.location["@coord_x"]) - (+item1.location["@coord_x"]));
                 var config = {};
-                config = {type:'path',attrs:{'d':'M '+x1*ratio+' '+y1*ratio+' L '+x2*ratio+' '+y2*ratio,'stroke':'#32cd32','fill':'#32cd32','stroke-width':3*ratio}};
+                config = {type:'path',attrs:{'d':'M '+x1*ratio+' '+y1*ratio+' L '+x2*ratio+' '+y2*ratio,'stroke':'rgb(124,181,236)','fill':'rgb(124,181,236)','stroke-width':3*ratio}};
                 court.append(config.type).attr(config.attrs);
-                console.log(alpha);
-                config = {type:'path',attrs:{'d':'M '+(x2 - r*(0.867*Math.cos(alpha)+0.5*Math.sin(alpha)))*ratio+' '+(y2 +r*(0.5*Math.cos(alpha)-0.867*Math.sin(alpha) ) )*ratio+' L '+x2*ratio+' '+y2*ratio+' L '+(x2-r*(0.867*Math.cos(alpha)-0.867*Math.sin(alpha)))*ratio+' '+(y2-r*(0.5*Math.cos(alpha)+0.867*Math.sin(alpha)))*ratio+' ','stroke':'#32cd32','fill':'#32cd32','stroke-width':3*ratio}};
+                config = {type:'path',attrs:{'d':'M '+(x2 - r*(0.867*Math.cos(alpha)+0.5*Math.sin(alpha)))*ratio+' '+(y2 +r*(0.5*Math.cos(alpha)-0.867*Math.sin(alpha) ) )*ratio+' L '+x2*ratio+' '+y2*ratio+' L '+(x2-r*(0.867*Math.cos(alpha)-0.867*Math.sin(alpha)))*ratio+' '+(y2-r*(0.5*Math.cos(alpha)+0.867*Math.sin(alpha)))*ratio+' ','stroke':'rgb(124,181,236)','fill':'rgb(124,181,236)','stroke-width':3*ratio}};
                 court.append(config.type).attr(config.attrs);
             //- }
             //- return;
@@ -206,41 +264,92 @@ block scriptsEnd
                     //- break;
                 case "Block" :
                     config = {type:'path',attrs:{'d':'M '+(+(item.location["@coord_x"])-0.5*r)*ratio+' '+(+(item.location["@coord_y"])-0.5*r)*ratio+' L '+(+(item.location["@coord_x"])+0.5*r)*ratio+' '+(+(item.location["@coord_y"])-0.5*r)*ratio+' L '+(+(item.location["@coord_x"])+0.5*r)*ratio+' '+(+(item.location["@coord_y"])+0.5*r)*ratio+' L '+(+(item.location["@coord_x"])-0.5*r)*ratio+' '+(+(item.location["@coord_y"])+0.5*r)*ratio+'z','stroke':'#87cefa','fill':'#87cefa','stroke-width':3*ratio}};
-                    court.append(config.type).attr(config.attrs);
+                    court.append(config.type).attr(config.attrs).on("mouseover", function(){
+                       tooltip(item);
+                    }).on("mouseout", function(){
+                        D3.selectAll("div.tooltip").remove();
+                    });
                     break;
                 case "Dead Ball" :
                      config = {type:'circle',attrs:{'cx':item.location["@coord_x"]*ratio,'cy':item.location["@coord_y"]*ratio,'r':r*ratio,'stroke':'#ccc','fill':'#fff','stroke-width':3*ratio}};
-                    court.append(config.type).attr(config.attrs);
+                    court.append(config.type).attr(config.attrs).on("mouseover", function(){
+                        tooltip(item);
+                    }).on("mouseout", function(){
+                        D3.selectAll("div.tooltip").remove();
+                    });
                     break;
                 case "Defensive Rebound" :
                      config = {type:'path',attrs:{'d':'M '+(+(item.location["@coord_x"])-0.866*r)*ratio+' '+(+(item.location["@coord_y"])+0.500*r)*ratio+' L '+(+(item.location["@coord_x"])+0.866*r)*ratio+' '+(+(item.location["@coord_y"])+0.500*r)*ratio+' L '+(+(item.location["@coord_x"])*ratio)+' '+(+(item.location["@coord_y"])-r)*ratio+'z','stroke':'#32cd32','fill':'#32cd32','stroke-width':3*ratio}};
-                    court.append(config.type).attr(config.attrs);
+                    court.append(config.type).attr(config.attrs).on("mouseover", function(){
+                        tooltip(item);
+                    }).on("mouseout", function(){
+                        D3.selectAll("div.tooltip").remove();
+                    });
                     break;
                 case "Offensive Rebound" :
                     config = {type:'path',attrs:{'d':'M '+(+(item.location["@coord_x"])-0.866*r)*ratio+' '+(+(item.location["@coord_y"])+0.500*r)*ratio+' L '+(+(item.location["@coord_x"])+0.866*r)*ratio+' '+(+(item.location["@coord_y"])+0.500*r)*ratio+' L '+(+(item.location["@coord_x"])*ratio)+' '+(+(item.location["@coord_y"])-r)*ratio+'z','stroke':'#ff6347','fill':'#ff6347','stroke-width':3*ratio}};
-                    court.append(config.type).attr(config.attrs);
+                    court.append(config.type).attr(config.attrs).on("mouseover", function(){
+                        tooltip(item);
+                    }).on("mouseout", function(){
+                        D3.selectAll("div.tooltip").remove();
+                    });
                     break;
                 case "Made Shot" :
                      config = {type:'circle',attrs:{'cx':item.location["@coord_x"]*ratio,'cy':item.location["@coord_y"]*ratio,'r':r*ratio,'stroke':'#ffa500','fill':'#ffa500','stroke-width':3*ratio}};
-                    court.append(config.type).attr(config.attrs);
+                    court.append(config.type).attr(config.attrs).on("mouseover", function(){
+                        tooltip(item);
+                    }).on("mouseout", function(){
+                        D3.selectAll("div.tooltip").remove();
+                    });
                     break;
                 case "Missed Shot" :
                     config = {type:'circle',attrs:{'cx':item.location["@coord_x"]*ratio,'cy':item.location["@coord_y"]*ratio,'r':r*ratio,'stroke':'#1e90ff','fill':'#fff','stroke-width':3*ratio}};
-                    court.append(config.type).attr(config.attrs);
+                    court.append(config.type).attr(config.attrs).on("mouseover", function(){
+                        tooltip(item);
+                    }).on("mouseout", function(){
+                        D3.selectAll("div.tooltip").remove();
+                    });
                     break;
 
                 case "Foul" :
                     config = {type:'path',attrs:{'d':'M '+(+(item.location["@coord_x"])-0.5*r)*ratio+' '+(+(item.location["@coord_y"])-0.5*r)*ratio+' L '+(+(item.location["@coord_x"])+0.5*r)*ratio+' '+(+(item.location["@coord_y"])+0.5*r)*ratio+'M '+(+(item.location["@coord_x"])+0.5*r)*ratio+' '+(+(item.location["@coord_y"])-0.5*r)*ratio+' L '+(+(item.location["@coord_x"]) -0.5*r)*ratio+' '+(+(item.location["@coord_y"])+0.5*r)*ratio,'stroke':'#ff69b4','fill':'#ff69b4','stroke-width':3*ratio}};
-                    court.append(config.type).attr(config.attrs);
+                    court.append(config.type).attr(config.attrs).on("mouseover", function(){
+                        tooltip(item);
+                    }).on("mouseout", function(){
+                        D3.selectAll("div.tooltip").remove();
+                    });
                     break;
                 case "Steal" :
                      config = {type:'path',attrs:{'d':'M '+(+(item.location["@coord_x"])-0.866*r)*ratio+' '+(+(item.location["@coord_y"])-0.500*r)*ratio+' L '+(+(item.location["@coord_x"])+0.866*r)*ratio+' '+(+(item.location["@coord_y"])-0.500*r)*ratio+' L '+(+(item.location["@coord_x"])*ratio)+' '+(+(item.location["@coord_y"])+r)*ratio+'z','stroke':'#7b68ee','fill':'#7b68ee','stroke-width':3*ratio}};
-                    court.append(config.type).attr(config.attrs);
+                    court.append(config.type).attr(config.attrs).on("mouseover", function(){
+                        tooltip(item);
+                    }).on("mouseout", function(){
+                        D3.selectAll("div.tooltip").remove();
+                    });
                     break;
 
                 case "Turnover" :
                     config = {type:'path',attrs:{'d':'M '+(+(item.location["@coord_x"]))*ratio+' '+(+(item.location["@coord_y"])-0.72*r)*ratio+' L '+(+(item.location["@coord_x"])+0.72*r)*ratio+' '+(+(item.location["@coord_y"]))*ratio+' L '+(+(item.location["@coord_x"]))*ratio+' '+(+(item.location["@coord_y"])+0.72*r)*ratio+' L '+(+(item.location["@coord_x"]) -0.72*r)*ratio+' '+(+(item.location["@coord_y"]))*ratio,'stroke':'#ffd700','fill':'#ffd700','stroke-width':3*ratio}};
-                    court.append(config.type).attr(config.attrs);
+                    court.append(config.type).attr(config.attrs).on("mouseover", function(){
+                        tooltip(item);
+                    }).on("mouseout", function(){
+                        D3.selectAll("div.tooltip").remove();
+                    });
                     break;
             }
+        }
+
+        function tooltip(item ){
+            console.log(item);
+            var style = "position:absolute;";
+            style += 'top:'+(+item.location["@coord_y"])*ratio+'px;' + "left:" + (+item.location["@coord_x"])*ratio  + "px;";
+            var text = '';
+            for( key in item){
+                if( key === "location" ){
+                    text += key + ": {x:"+item[key]["@coord_x"]+",y:"+item[key]["@coord_y"]+"}" + "<br/>";
+                }else{
+                    text += key + ": " + item[key] + "<br/>";
+                }
+            }
+            D3.select("div#chart").append("div").attr("class", "tooltip").attr("style",style)[0][0].innerHTML = text;
         }

@@ -5,42 +5,109 @@
 @import "compass/utilities/"
 
 $event_top: 50px
-$negative_event_top:-50px
-$event_height:680px
+$negative_event_top: -80px
+$event_height: 700px
+$btns_color: #18bc9c
 
 .event_flow
 	border: 1px solid #ccc
-	top: $event_top
 	margin: 10px
-	position: relative
 	padding: 10px auto
-	*zoom: 1
+	@include border-radius(3px)
 	@include clearfix
+	margin-top: 50px
+	.ctrl_btns
+		position: fixed
+		top: 44px
+		z-index: 1000
+		font-size: 18px
+		border-left: 1px solid #ccc
+		border-right: 1px solid #ccc
+		background-color: $btns_color
+		left: -1px
+		right: -1px
+		@include border-top-left-radius(3px)
+		@include border-top-right-radius(3px)
+		ul
+			color: #fff
+			li
+				display:  inline-block
+				*zoom: 1
+				height: 32px
+				line-height: 32px
+				@include inline-block-list-item(10px)
+				span
+					height: 28px
+					line-height: 28px
+					display: inline-block
+					padding: 0 10px
+				input
+					display: inline-block
+					height: 23px
+					line-height: 23px
+					padding: 0
+					border: 0
+					@include border-radius(3px)
+
+				select
+					width: 160px
+					height: 28px
+					line-height: 28px
+					margin: auto 0
+					margin-top: -2px
+					background-color: $btns_color
+					border-color: $btns_color
+					border: 0
+					color: #fff
+					font-size: 14px
+					@include border-radius(3px)
+					&:visited
+						border: 0
+					&:active
+						border: 0
+					&:focus
+						border: 0
+					option
+						display: inline-block
+						height: 28px
+						line-height: 28px
+						font-size: 14px
+						margin: 5px 0
+
 	.left
 		position: relative
-		border: 1px solid red
 		float: left
 		width: 40%
-		height: $event_height
+		height: 720px
 		top: $event_top
-		margin: 10px
-		@include transform(translateY($negative_event_top))
+		margin: 5px
+		margin-top: -30px
 	.right
 		position: relative
-		border: 1px solid green
-		width: 56%
+		width: 57%
 		justify-content: center
-		margin: 10px
 		float: right
+		border-left: 1px solid #ccc
 		height: $event_height
 		.north
 			position: relative
-			height: 64%
-			border: 1px solid yellow
+			height: 56%
+			margin-top: 80px
+			border-bottom: 1px solid #ccc
 			@include clearfix
 		.south
 			position: relative
-			border: 1px solid blue
-			height: 35%
+			margin: 0px auto
+			width: 92%
+			height: 42%
 			justify-content: center
 			@include clearfix
+.tooltip
+	position: absolute
+	background-color: rgba(0,0,0,0.701)
+	color: rgb(255,255,255)
+	font-size: 12px
+	padding: 5px
+	line-height: 18px
+	@include border-radius(3px)
+	z-index: 1000
