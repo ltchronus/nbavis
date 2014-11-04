@@ -74,6 +74,8 @@ define(function(require, exports, module) {
             "Missed Shot", "Offensive Rebound", "Steal", "Timeout", "Turnover"
         ];
         this._data['@category'] = [];
+        this._data["@filter"] = {};
+        var data = {};
 
         // var  possession =  '';
         var home_id = 0, //主队的possession编号
@@ -147,7 +149,7 @@ define(function(require, exports, module) {
 
 
         //统计快攻
-        this._data["@fastBreak"] = [];
+        data["@fastBreak"] = [];
         for (var i = 0, l = this._data["@possessions"].length; i < l; i++) {
             var possession = this._data["@possessions"][i];
             var begin = possession.data[0],
@@ -157,15 +159,27 @@ define(function(require, exports, module) {
                 if (getScore(end)) {
                     tim = dataString2Int(end.time) - dataString2Int(begin.time);
                     if (tim <= 8) {
-                        this._data["@fastBreak"].push(possession);
+                        data["@fastBreak"].push(possession);
                         break;
                     }
                 }
             }
         }
+        this._data["@filter"]["@fastBreak"] = {};
+        this._data["@filter"]["@fastBreak"]["@category"] = [];
+        this._data["@filter"]["@fastBreak"]["@number"] = 0;
+        for (var i = 0, l = data['@fastBreak'].length; i < l; i++) {
+            var possession = data['@fastBreak'][i];
+            this._data["@filter"]["@fastBreak"]["@category"].push(possession.name);
+            for (var j = 0, m = possession.data.length; j < m; j++) {
+                this._data["@filter"]["@fastBreak"]["@number"] ++;
+            }
+        }
+        this._data["@filter"]["@fastBreak"]["@value"] = data['@fastBreak'];
+        this._data["@filter"]["@fastBreak"]["@events"] = this._data['@events'];
 
         // 统计2+1和3+1
-        this._data["@andOne"] = [];
+        data["@andOne"] = [];
         for (var i = 0, l = this._data["@possessions"].length; i < l; i++) {
             var flag = 1;
             var possession = this._data["@possessions"][i];
@@ -181,7 +195,7 @@ define(function(require, exports, module) {
                             for (var ki = k + 1; flag && (ki < m); ki++) {
                                 free = possession.data[ki];
                                 if (free.name.indexOf("Made Free Throw") > -1) {
-                                    this._data["@andOne"].push(possession);
+                                    data["@andOne"].push(possession);
                                     flag = 0;
                                 }
                             }
@@ -190,9 +204,21 @@ define(function(require, exports, module) {
                 }
             }
         }
+        this._data["@filter"]["@andOne"] = {};
+        this._data["@filter"]["@andOne"]["@category"] = [];
+        this._data["@filter"]["@andOne"]["@number"] = 0;
+        for (var i = 0, l = data['@andOne'].length; i < l; i++) {
+            var possession = data['@andOne'][i];
+            this._data["@filter"]["@andOne"]["@category"].push(possession.name);
+            for (var j = 0, m = possession.data.length; j < m; j++) {
+                this._data["@filter"]["@andOne"]["@number"] ++;
+            }
+        }
+        this._data["@filter"]["@andOne"]["@value"] = data['@andOne'];
+        this._data["@filter"]["@andOne"]["@events"] = this._data['@events'];
 
         // get the winning goal
-        this._data["@winingGoal"] = [];
+        data["@winingGoal"] = [];
         var l = this._data["@possessions"].length;
         var gameover_event = this._data["@possessions"][l - 1].data;
         gameover_event = gameover_event[gameover_event.length - 1];
@@ -206,34 +232,70 @@ define(function(require, exports, module) {
             var end = possession.event[possession.event.length - 1];
             var flag = getWinnigGoal(begin, end, end_time);
             if (flag) {
-                this._data["@winingGoal"].push(possession);
+                data["@winingGoal"].push(possession);
             }
         }
+        // this._data["@filter"]["@winingGoal"] = {};
+        // this._data["@filter"]["@winingGoal"]["@category"] = [];
+        // this._data["@filter"]["@winingGoal"]["@number"] = 0;
+        // for (var i = 0, l = data['@winingGoal'].length; i < l; i++) {
+        //     var possession = data['@winingGoal'][i];
+        //     this._data["@filter"]["@winingGoal"]["@category"].push(possession.name);
 
-        this._data['@3pts'] = [];
+        //     this._data["@filter"]["@winingGoal"]["@number"] ++;
+        // }
+        // this._data["@filter"]["@winingGoal"]["@value"] = data['@winingGoal'];
+        // this._data["@filter"]["@winingGoal"]["@events"] = this._data['@events'];
+
+
+
+        data['@3pts'] = [];
         for (var i = 0, l = this._data['@possessions'].length; i < l; i++) {
             var possession = this._data['@possessions'][i];
             for (var j = 0, m = possession.data.length; j < m; j++) {
                 var eventItem = possession.data[j];
                 if (eventItem.shottype && eventItem.shottype === '3') {
-                    this._data['@3pts'].push(possession);
+                    data['@3pts'].push(possession);
                     break;
                 }
             }
         }
+        this._data["@filter"]["@3pts"] = {};
+        this._data["@filter"]["@3pts"]["@category"] = [];
+        this._data["@filter"]["@3pts"]["@number"] = 0;
+        for (var i = 0, l = data['@3pts'].length; i < l; i++) {
+            var possession = data['@3pts'][i];
+            this._data["@filter"]["@3pts"]["@category"].push(possession.name);
+            for (var j = 0, m = possession.data.length; j < m; j++) {
+                this._data["@filter"]["@3pts"]["@number"] ++;
+            }
+        }
+        this._data["@filter"]["@3pts"]["@value"] = data['@3pts'];
+        this._data["@filter"]["@3pts"]["@events"] = this._data['@events'];
 
-
-        this._data['@2pts'] = [];
+        data['@2pts'] = [];
         for (var i = 0, l = this._data['@possessions'].length; i < l; i++) {
             var possession = this._data['@possessions'][i];
             for (var j = 0, m = possession.data.length; j < m; j++) {
                 var eventItem = possession.data[j];
                 if (eventItem.shottype && eventItem.shottype === '2') {
-                    this._data['@2pts'].push(possession);
+                    data['@2pts'].push(possession);
                     break;
                 }
             }
         }
+        this._data["@filter"]["@2pts"] = {};
+        this._data["@filter"]["@2pts"]["@category"] = [];
+        this._data["@filter"]["@2pts"]["@number"] = 0;
+        for (var i = 0, l = data['@2pts'].length; i < l; i++) {
+            var possession = data['@2pts'][i];
+            this._data["@filter"]["@2pts"]["@category"].push(possession.name);
+            for (var j = 0, m = possession.data.length; j < m; j++) {
+                this._data["@filter"]["@2pts"]["@number"] ++;
+            }
+        }
+        this._data["@filter"]["@2pts"]["@value"] = data['@2pts'];
+        this._data["@filter"]["@2pts"]["@events"] = this._data['@events'];
 
 
 

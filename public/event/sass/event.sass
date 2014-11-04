@@ -6,7 +6,6 @@
 
 $event_top: 50px
 $negative_event_top: -80px
-$event_height: 700px
 $btns_color: #18bc9c
 
 .event_flow
@@ -24,55 +23,36 @@ $btns_color: #18bc9c
 		border-left: 1px solid #ccc
 		border-right: 1px solid #ccc
 		background-color: $btns_color
+		color: #fff
 		left: -1px
 		right: -1px
 		@include border-top-left-radius(3px)
 		@include border-top-right-radius(3px)
-		ul
+		div.btn-group
 			color: #fff
-			li
-				display:  inline-block
-				*zoom: 1
-				height: 32px
-				line-height: 32px
-				@include inline-block-list-item(10px)
-				span
-					height: 28px
-					line-height: 28px
-					display: inline-block
-					padding: 0 10px
-				input
-					display: inline-block
-					height: 23px
-					line-height: 23px
-					padding: 0
-					border: 0
-					@include border-radius(3px)
+			white-space: nowrap
+			.btn.btn-default
+				background-color: $btns_color
+				border: 0
+				color: #fff
+				vertical-align: middle
+			input
+				height: 28px
+				line-height: 28px
+				@include border-radius(4px)
+			.dropdown
+				.dropdown-menu
+					li
+						position: relative
+						cursor: pointer
+						user-select: none
+					.sub-menu
+						left: 100%
+						position: absolute
+						top: 0
+						display: none
+						margin-top: -1px
 
-				select
-					width: 160px
-					height: 28px
-					line-height: 28px
-					margin: auto 0
-					margin-top: -2px
-					background-color: $btns_color
-					border-color: $btns_color
-					border: 0
-					color: #fff
-					font-size: 14px
-					@include border-radius(3px)
-					&:visited
-						border: 0
-					&:active
-						border: 0
-					&:focus
-						border: 0
-					option
-						display: inline-block
-						height: 28px
-						line-height: 28px
-						font-size: 14px
-						margin: 5px 0
 
 	.left
 		position: relative
@@ -88,10 +68,9 @@ $btns_color: #18bc9c
 		justify-content: center
 		float: right
 		border-left: 1px solid #ccc
-		height: $event_height
 		.north
 			position: relative
-			height: 56%
+			height: 390px
 			margin-top: 80px
 			border-bottom: 1px solid #ccc
 			@include clearfix
@@ -99,7 +78,7 @@ $btns_color: #18bc9c
 			position: relative
 			margin: 0px auto
 			width: 92%
-			height: 42%
+			height: 300px
 			justify-content: center
 			@include clearfix
 .tooltip
@@ -111,3 +90,16 @@ $btns_color: #18bc9c
 	line-height: 18px
 	@include border-radius(3px)
 	z-index: 1000
+
+#mutlidropdown
+	background-color: #FFF
+
+.right-caret
+	&:after
+		content: ""
+		display: inline-block
+		height: 0
+		vertical-align: middle
+		width: 0
+		margin-left: 5px
+

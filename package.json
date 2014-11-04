@@ -27,7 +27,14 @@
     },
     "devAlias": {
       "highcharts.css": "alinw/highcharts/3.0.8/highcharts.css",
-      "highcharts": "alinw/highcharts/3.0.8/highcharts"
+      "highcharts": "alinw/highcharts/3.0.8/highcharts",
+      "bootstrap-theme.css": "gallery/bootstrap/3.0.0/bootstrap-theme.css",
+      "bootstrap.css": "gallery/bootstrap/3.0.0/bootstrap.css",
+      "bootstrap": "gallery/bootstrap/3.0.0/bootstrap",
+      "fonts/glyphicons-halflings-regular.eot": "gallery/bootstrap/3.0.0/fonts/glyphicons-halflings-regular.eot",
+      "fonts/glyphicons-halflings-regular.svg": "gallery/bootstrap/3.0.0/fonts/glyphicons-halflings-regular.svg",
+      "fonts/glyphicons-halflings-regular.ttf": "gallery/bootstrap/3.0.0/fonts/glyphicons-halflings-regular.ttf",
+      "fonts/glyphicons-halflings-regular.woff": "gallery/bootstrap/3.0.0/fonts/glyphicons-halflings-regular.woff"
     }
   }
 }

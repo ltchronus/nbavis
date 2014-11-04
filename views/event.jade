@@ -2,63 +2,210 @@ extends layout
 block links
     //- link(rel='stylesheet', href='public/index/stylesheets/metro.css')
     link(rel='stylesheet', href='public/event/stylesheets/event.css')
+    link(rel='stylesheet', href='sea-modules/gallery/bootstrap/3.0.0/bootstrap.css')
 
 block content
     div(class='event_flow')
         div(id='ctrl_btn',class="ctrl_btns")
-            ul
-                li
-                    span EventFlow
-                    select
-                        option(value="HomeTeam") HomeTeam
-                        option(value="LaMarcus Aldridge") LaMarcus Aldridge
-                        option(value="Robin Lopez") Robin Lopez
-                        option(value="Nicolas Batum") Nicolas Batum
-                        option(value="Damian Lillard") Damian Lillard
-                        option(value="Wesley Matthews") Wesley Matthews
-                        option(value="hr") ----------------
-                        option(value="AwayTeam") AwayTeam
-                        option(value="Dirk Nowitzki") Dirk Nowitzki
-                        option(value="DeJuan Blair") DeJuan Blair
-                        option(value="Monta Ellis") Monta Ellis
-                        option(value="Jose Calderon") Jose Calderon
-                        option(value="Shawn Marion") Shawn Marion
-                li
-                    span Court
-                    select
-                        option(value="Made Shot") Made Shot
-                        option(value="Missed Shot") Missed Shot
-                        option(value="Made Free Throw") Made Free Throw
-                        option(value="Missed Free Throw") Missed Free Throw
-                        option(value="Defensive Rebound") Defensive Rebound
-                        option(value="Offensive Rebound") Offensive Rebound
-                        option(value="Block") Block
-                        option(value="Foul") Foul
-                        option(value="Steal") Steal
-                        option(value="Turnover") Turnover
-                        option(value="FastBeak") FastBeak
-                        option(value="WiningGoal") WiningGoal
-                        option(value="3PonitsPlay") 3PonitsPlay
-                li
-                    span Analysis
-                    select
-                        option(value="HomeTeam") HomeTeam
-                        option(value="LaMarcus Aldridge") LaMarcus Aldridge
-                        option(value="Robin Lopez") Robin Lopez
-                        option(value="Nicolas Batum") Nicolas Batum
-                        option(value="Damian Lillard") Damian Lillard
-                        option(value="Wesley Matthews") Wesley Matthews
-                        option(value="hr") ----------------
-                        option(value="AwayTeam") AwayTeam
-                        option(value="Dirk Nowitzki") Dirk Nowitzki
-                        option(value="DeJuan Blair") DeJuan Blair
-                        option(value="Monta Ellis") Monta Ellis
-                        option(value="Jose Calderon") Jose Calderon
-                        option(value="Shawn Marion") Shawn Marion
-                    span StartTime
-                    input(type="text")
-                    span EndTime
-                    input(type="text")
+            div.btn-group
+                div.dropdown
+                    a(class="btn btn-default dropdown-toggle",data-toggle="dropdown") EventFlow
+                        span(class="caret")
+                    ul(class="dropdown-menu")
+                        li
+                            a(class="trigger right-caret") HomeTeam
+                            ul(class="dropdown-menu sub-menu")
+                                li
+                                    a(href="#") LaMarcus Aldridge
+                                li
+                                    a(href="#") Robin Lopez
+                                li
+                                    a(href="#") Nicolas Batum
+                                li
+                                    a(href="#") Damian Lillard
+                                li
+                                    a(href="#") Wesley Matthews
+                        li
+                            a(class="trigger right-caret") AwayTeam
+                            ul(class="dropdown-menu sub-menu")
+                                li
+                                    a(href="#") Dirk Nowitzki
+                                li
+                                    a(href="#") DeJuan Blair
+                                li
+                                    a(href="#") Monta Ellis
+                                li
+                                    a(href="#") Jose Calderon
+                                li
+                                    a(href="#") Shawn Marion
+            div.btn-group
+                div.btn-group
+                    button(class="btn btn-default dropdown-toggle",type="button", id="Court" data-toggle="dropdown") Court
+                        span(class="caret")
+                    ul(class="dropdown-menu" role="menu",aria-labelledby="Court")
+                        li(role="presentation")
+                            a(role="menuitem" tabindex="-1" href="#") Made Shot
+                        li(role="presentation")
+                            a(role="menuitem" tabindex="-1" href="#") Missed Shot
+                        li(role="presentation")
+                            a(role="menuitem" tabindex="-1" href="#") Made Free Throw
+                        li(role="presentation")
+                            a(role="menuitem" tabindex="-1" href="#") Missed Free Throw
+                        li(role="presentation")
+                            a(role="menuitem" tabindex="-1" href="#") Defensive Rebound
+                        li(role="presentation")
+                            a(role="menuitem" tabindex="-1" href="#") Offensive Rebound
+                        li(role="presentation")
+                            a(role="menuitem" tabindex="-1" href="#") Block
+                        li(role="presentation")
+                            a(role="menuitem" tabindex="-1" href="#") Foul
+                        li(role="presentation")
+                            a(role="menuitem" tabindex="-1" href="#") Steal
+                        li(role="presentation")
+                            a(role="menuitem" tabindex="-1" href="#") Turnover
+                        li(role="presentation")
+                            a(role="menuitem" tabindex="-1" href="#") FastBeak
+                        li(role="presentation")
+                            a(role="menuitem" tabindex="-1" href="#") WiningGoal
+                        li(role="presentation")
+                            a(role="menuitem" tabindex="-1" href="#") 3PonitsPlay
+            div.btn-group
+                div.dropdown
+                    a(class="btn btn-default dropdown-toggle",data-toggle="dropdown") Analysis
+                        span(class="caret")
+                    ul(class="dropdown-menu")
+                        li
+                            a(class="trigger right-caret") Team
+                            ul(class="dropdown-menu sub-menu")
+                                li
+                                    a(class="trigger right-caret") HomeTeam
+                                    ul(class="dropdown-menu sub-menu")
+                                        li
+                                            a(href="#") DRB
+                                        li
+                                            a(href="#") EFG
+                                        li
+                                            a(href="#") FTR
+                                        li
+                                            a(href="#") ORB
+                                        li
+                                            a(href="#") TOV
+                                li
+                                    a(class="trigger right-caret") AwayTeam
+                                    ul(class="dropdown-menu sub-menu")
+                                        li
+                                            a(href="#") DRB
+                                        li
+                                            a(href="#") EFG
+                                        li
+                                            a(href="#") FTR
+                                        li
+                                            a(href="#") ORB
+                                        li
+                                            a(href="#") TOV
+                        li
+                            a(class="trigger right-caret") Players
+                            ul(class="dropdown-menu sub-menu")
+                                li
+                                    a(class="trigger right-caret") LaMarcus Aldridge
+                                    ul(class="dropdown-menu sub-menu")
+                                        li
+                                            a(href="#") Points Created
+                                        li
+                                            a(href="#") Nicolas Batum
+                                        li
+                                            a(href="#") Damian Lillard
+                                li
+                                    a(class="trigger right-caret") Robin Lopez
+                                    ul(class="dropdown-menu sub-menu")
+                                        li
+                                            a(href="#") Points Created
+                                        li
+                                            a(href="#") Nicolas Batum
+                                        li
+                                            a(href="#") Damian Lillard
+                                li
+                                    a(class="trigger right-caret") Nicolas Batum
+                                    ul(class="dropdown-menu sub-menu")
+                                        li
+                                            a(href="#") Points Created
+                                        li
+                                            a(href="#") Nicolas Batum
+                                        li
+                                            a(href="#") Damian Lillard
+                                li
+                                    a(class="trigger right-caret") Damian Lillard
+                                    ul(class="dropdown-menu sub-menu")
+                                        li
+                                            a(href="#") Points Created
+                                        li
+                                            a(href="#") Nicolas Batum
+                                        li
+                                            a(href="#") Damian Lillard
+                                li
+                                    a(class="trigger right-caret") Wesley Matthews
+                                    ul(class="dropdown-menu sub-menu")
+                                        li
+                                            a(href="#") Points Created
+                                        li
+                                            a(href="#") Nicolas Batum
+                                        li
+                                            a(href="#") Damian Lillard
+                                li
+                                    a(class="trigger right-caret") Dirk Nowitzki
+                                    ul(class="dropdown-menu sub-menu")
+                                        li
+                                            a(href="#") Points Created
+                                        li
+                                            a(href="#") Nicolas Batum
+                                        li
+                                            a(href="#") Damian Lillard
+                                li
+                                    a(class="trigger right-caret") DeJuan Blair
+                                    ul(class="dropdown-menu sub-menu")
+                                        li
+                                            a(href="#") Points Created
+                                        li
+                                            a(href="#") Nicolas Batum
+                                        li
+                                            a(href="#") Damian Lillard
+                                li
+                                    a(class="trigger right-caret") Monta Ellis
+                                    ul(class="dropdown-menu sub-menu")
+                                        li
+                                            a(href="#") Points Created
+                                        li
+                                            a(href="#") Nicolas Batum
+                                        li
+                                            a(href="#") Damian Lillard
+                                li
+                                    a(class="trigger right-caret") Jose Calderon
+                                    ul(class="dropdown-menu sub-menu")
+                                        li
+                                            a(href="#") Points Created
+                                        li
+                                            a(href="#") Nicolas Batum
+                                        li
+                                            a(href="#") Damian Lillard
+                                li
+                                    a(class="trigger right-caret") Shawn Marion
+                                    ul(class="dropdown-menu sub-menu")
+                                        li
+                                            a(href="#") Points Created
+                                        li
+                                            a(href="#") Nicolas Batum
+                                        li
+                                            a(href="#") Damian Lillard
+            div.btn-group
+                div.btn-group
+                    button(class="btn btn-default") StartTime
+                    input
+                div.btn-group
+                    button(class="btn btn-default") EndTime
+                    input
+
+
+
         div(id='map',class='left')
         div(id='charts',class='right')
             div(id='chart',class='north')
@@ -80,33 +227,44 @@ block scriptsEnd
                 'half_court': '/dev/components/court/src/half_court',
                 'd3': '/sea-modules/gallery/d3/3.4.3/d3',
                 'json2echart_data': '/dev/components/json2echart_data/src/json2echart_data',
-                'highcharts':'/sea-modules/alinw/highcharts/3.0.8/highcharts-debug.js'
+                'highcharts':'/sea-modules/alinw/highcharts/3.0.8/highcharts-debug.js',
+                'bootstrapjs':'/sea-modules/gallery/bootstrap/3.0.0/bootstrap-debug.js'
             }
         })
 
-        seajs.use(['jquery', 'court', 'd3', 'Zone14', 'half_court', 'json2echart_data','highcharts'],
+        seajs.use(['jquery', 'court', 'd3', 'Zone14', 'half_court', 'json2echart_data','highcharts','bootstrapjs'],
             function($, VORPED, d3, Zone14, half_court, json2echart_data,highcharts) {
+
+                $(function(){
+                    $(".dropdown-menu > li > a.trigger").on("click",function(e){
+                        var current=$(this).next();
+                        var grandparent=$(this).parent().parent();
+                        if($(this).hasClass('left-caret')||$(this).hasClass('right-caret'))
+                            $(this).toggleClass('right-caret left-caret');
+                        grandparent.find('.left-caret').not(this).toggleClass('right-caret left-caret');
+                        grandparent.find(".sub-menu:visible").not(current).hide();
+                        current.toggle();
+                        e.stopPropagation();
+                    });
+                    $(".dropdown-menu > li > a:not(.trigger)").on("click",function(){
+                        var root=$(this).closest('.dropdown');
+                        root.find('.left-caret').toggleClass('right-caret left-caret');
+                        root.find('.sub-menu:visible').hide();
+                    });
+                });
                 var courtWidth = $(".right").width();
                 ratio = courtWidth / 1140;
                 D3 = d3;
                 var courtObj = new VORPED.court(ratio);
                 var court = courtObj.draw('court', '');
-
-                //- var halfcourtObj = new half_court.court();
-                //- var halfcourt =  halfcourtObj.draw('court1','');
-                //- var obj_zone = new Zone14(halfcourtObj,[],[]);
-                //- obj_zone.draw();
-                //- obj_zone.show(0);
-                //- halfcourt.selectAll(".shotzone14").attr('fill','white');
-
                 d3.select("svg").attr("style", "background-color: white");
-
 
                 //- $.getJSON('/public/data/POR_DAL_location.json', function( data){
                 $.getJSON('/public/data/11-1.json', function( data){
                     console.log(data);
                     game_data = new json2echart_data( data).getData();
                     console.log( game_data );
+                    game_data = game_data["@filter"]["@2pts"];
                     var height = $('#map')[0].scrollHeight;
                     var option = {
                         tooltip: {
@@ -118,8 +276,13 @@ block scriptsEnd
                                 var param = params[0][2];
                                 var result = "";
                                 for (key in param) {
-                                    result += key + " : " + param[key] +
-                                        "<br/>";
+                                    if( key === "location"){
+                                        result += key + " : {x:" + param[key]["@coord_x"] +",y:"+ param[key]["@coord_y"]+"}"+
+                                            "<br/>";
+                                    }else{
+                                        result += key + " : " + param[key] +
+                                            "<br/>";
+                                    }
                                 }
                                 return result;
                             }
@@ -151,29 +314,22 @@ block scriptsEnd
                             type: 'category',
                             data: game_data["@category"]
                         }],
-                        series: game_data["@possessions"]
+                        series: game_data["@value"]
                     };
 
                     init_echarts('map', option);
 
+                    //team DAL analysis  PTS PerPoss
                     $('#lineChart').highcharts({
                         title: {
-                            text: 'Monthly Average Temperature',
+                            text: 'Team Analysis',
                             x: -20 //center
                         },
-                        subtitle: {
-                            text: 'Source: WorldClimate.com',
-                            x: -20
-                        },
                         xAxis: {
-                            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-                                'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
-                            ]
+                            type:'datetime'
                         },
                         yAxis: {
-                            title: {
-                                text: 'Temperature (°C)'
-                            },
+                            title: {text:'PTS PerPoss'},
                             plotLines: [{
                                 value: 0,
                                 width: 1,
@@ -181,7 +337,12 @@ block scriptsEnd
                             }]
                         },
                         tooltip: {
-                            valueSuffix: '°C'
+                            formatter: function(data){
+                                console.log(data);
+                                console.log(this);
+                                return (new Date(this.x)).toLocaleDateString("en-US",{ weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) +"<br/>" +data.chart.yAxis[0].options.title.text+": "+ this.y;
+                                //- return data;
+                            }
                         },
                         legend: {
                             layout: 'vertical',
@@ -190,23 +351,87 @@ block scriptsEnd
                             borderWidth: 0
                         },
                         series: [{
-                            name: 'Tokyo',
-                            data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3,18.3, 13.9, 9.6]
-                        }, {
-                            name: 'New York',
-                            data: [-0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8, 24.1, 20.1, 14.1, 8.6, 2.5]
-                        }, {
-                            name: 'Berlin',
-                            data: [-0.9, 0.6, 3.5, 8.4, 13.5, 17.0, 18.6, 17.9, 14.3,9.0, 3.9, 1.0]
-                        }, {
-                            name: 'London',
-                            data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2,10.3, 6.6, 4.8]
-                        }]
+                            name: 'DAL',
+                            data: [
+                                [Date.UTC(2013,11,4),0.973],
+                                [Date.UTC(2013,11,5),1.056],
+                                [Date.UTC(2013,11,8),1.115],
+                                [Date.UTC(2013,11,10), 0.875],
+                                [Date.UTC(2013,11,12), 0.957]
+                            ]
+                        }
+                        , {
+                            name: 'POR',
+                            data: [
+                                [Date.UTC(2013,11,5), 1.105],
+                                [Date.UTC(2013,11,7), 1.333],
+                                [Date.UTC(2013,11,8),1.978],
+                                [Date.UTC(2013,11,10), 1.119],
+                                [Date.UTC(2013,11,13), 1.097]
+                            ]
+                        }
+                        ]
                     });
+
+                     //team DAL analysis  efg
+                    //- $('#lineChart').highcharts({
+                    //-     title: {
+                    //-         text: 'Team Analysis',
+                    //-         x: -20 //center
+                    //-     },
+                    //-     xAxis: {
+                    //-         type:'datetime'
+                    //-     },
+                    //-     yAxis: {
+                    //-         title: {text:'EFG'},
+                    //-         plotLines: [{
+                    //-             value: 0,
+                    //-             width: 1,
+                    //-             color: '#808080'
+                    //-         }]
+                    //-     },
+                    //-     //- tooltip: {
+                    //-     //-     formatter: function(data){
+                    //-     //-         console.log(data);
+                    //-     //-         return data;
+                    //-     //-     }
+                    //-     //- },
+                    //-     legend: {
+                    //-         layout: 'vertical',
+                    //-         align: 'right',
+                    //-         verticalAlign: 'middle',
+                    //-         borderWidth: 0
+                    //-     },
+                    //-     series: [{
+                    //-         name: 'DAL',
+                    //-         data: [
+                    //-             [Date.UTC(2013,11,4),0.451],
+                    //-             [Date.UTC(2013,11,5),1.056],
+                    //-             [Date.UTC(2013,11,8),1.115],
+                    //-             [Date.UTC(2013,11,10), 0.875],
+                    //-             [Date.UTC(2013,11,12), 0.957]
+                    //-         ]
+                    //-     }
+                    //-     , {
+                    //-         name: 'POR',
+                    //-         data: [
+                    //-             [Date.UTC(2013,11,5), 1.105],
+                    //-             [Date.UTC(2013,11,7), 1.333],
+                    //-             [Date.UTC(2013,11,8),1.978],
+                    //-             [Date.UTC(2013,11,10), 1.119],
+                    //-             [Date.UTC(2013,11,13), 1.097]
+                    //-         ]
+                    //-     }
+                    //-     ]
+                    //- });
+
+
+                    //player analysis
+
 
                     //- for( var i = 0, l = game_data["@possessions"].length; i < l; i++){
                     //-     var possession = game_data["@possessions"][i];
-                    court = draw(court, game_data["@fastBreak"][1]);
+                    //scourt = draw(court, game_data["@fastBreak"][1]);
                         //- court = draw(court, possession);
                     //- }
                 });

@@ -1,4 +1,4 @@
-/* line 12, ../sass/event.sass */
+/* line 11, ../sass/event.sass */
 .event_flow {
   border: 1px solid #ccc;
   margin: 10px;
@@ -10,7 +10,7 @@
   *zoom: 1;
   margin-top: 50px;
 }
-/* line 19, ../sass/event.sass */
+/* line 18, ../sass/event.sass */
 .event_flow .ctrl_btns {
   position: fixed;
   top: 44px;
@@ -19,6 +19,7 @@
   border-left: 1px solid #ccc;
   border-right: 1px solid #ccc;
   background-color: #18bc9c;
+  color: #fff;
   left: -1px;
   right: -1px;
   -moz-border-radius-topleft: 3px;
@@ -29,82 +30,40 @@
   border-top-right-radius: 3px;
 }
 /* line 31, ../sass/event.sass */
-.event_flow .ctrl_btns ul {
+.event_flow .ctrl_btns div.btn-group {
   color: #fff;
-}
-/* line 33, ../sass/event.sass */
-.event_flow .ctrl_btns ul li {
-  display: inline-block;
-  *zoom: 1;
-  height: 32px;
-  line-height: 32px;
-  list-style-image: none;
-  list-style-type: none;
-  margin-left: 0;
-  display: inline-block;
-  vertical-align: middle;
-  *vertical-align: auto;
-  *zoom: 1;
-  *display: inline;
   white-space: nowrap;
-  padding-left: 10px;
-  padding-right: 10px;
+}
+/* line 34, ../sass/event.sass */
+.event_flow .ctrl_btns div.btn-group .btn.btn-default {
+  background-color: #18bc9c;
+  border: 0;
+  color: #fff;
+  vertical-align: middle;
 }
 /* line 39, ../sass/event.sass */
-.event_flow .ctrl_btns ul li span {
+.event_flow .ctrl_btns div.btn-group input {
   height: 28px;
   line-height: 28px;
-  display: inline-block;
-  padding: 0 10px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
 }
-/* line 44, ../sass/event.sass */
-.event_flow .ctrl_btns ul li input {
-  display: inline-block;
-  height: 23px;
-  line-height: 23px;
-  padding: 0;
-  border: 0;
-  -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
-  border-radius: 3px;
+/* line 45, ../sass/event.sass */
+.event_flow .ctrl_btns div.btn-group .dropdown .dropdown-menu li {
+  position: relative;
+  cursor: pointer;
+  user-select: none;
 }
-/* line 52, ../sass/event.sass */
-.event_flow .ctrl_btns ul li select {
-  width: 160px;
-  height: 28px;
-  line-height: 28px;
-  margin: auto 0;
-  margin-top: -2px;
-  background-color: #18bc9c;
-  border-color: #18bc9c;
-  border: 0;
-  color: #fff;
-  font-size: 14px;
-  -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
-  border-radius: 3px;
+/* line 49, ../sass/event.sass */
+.event_flow .ctrl_btns div.btn-group .dropdown .dropdown-menu .sub-menu {
+  left: 100%;
+  position: absolute;
+  top: 0;
+  display: none;
+  margin-top: -1px;
 }
-/* line 64, ../sass/event.sass */
-.event_flow .ctrl_btns ul li select:visited {
-  border: 0;
-}
-/* line 66, ../sass/event.sass */
-.event_flow .ctrl_btns ul li select:active {
-  border: 0;
-}
-/* line 68, ../sass/event.sass */
-.event_flow .ctrl_btns ul li select:focus {
-  border: 0;
-}
-/* line 70, ../sass/event.sass */
-.event_flow .ctrl_btns ul li select option {
-  display: inline-block;
-  height: 28px;
-  line-height: 28px;
-  font-size: 14px;
-  margin: 5px 0;
-}
-/* line 77, ../sass/event.sass */
+/* line 57, ../sass/event.sass */
 .event_flow .left {
   position: relative;
   float: left;
@@ -114,36 +73,35 @@
   margin: 5px;
   margin-top: -30px;
 }
-/* line 85, ../sass/event.sass */
+/* line 65, ../sass/event.sass */
 .event_flow .right {
   position: relative;
   width: 57%;
   justify-content: center;
   float: right;
   border-left: 1px solid #ccc;
-  height: 700px;
 }
-/* line 92, ../sass/event.sass */
+/* line 71, ../sass/event.sass */
 .event_flow .right .north {
   position: relative;
-  height: 56%;
+  height: 390px;
   margin-top: 80px;
   border-bottom: 1px solid #ccc;
   overflow: hidden;
   *zoom: 1;
 }
-/* line 98, ../sass/event.sass */
+/* line 77, ../sass/event.sass */
 .event_flow .right .south {
   position: relative;
   margin: 0px auto;
   width: 92%;
-  height: 42%;
+  height: 300px;
   justify-content: center;
   overflow: hidden;
   *zoom: 1;
 }
 
-/* line 105, ../sass/event.sass */
+/* line 84, ../sass/event.sass */
 .tooltip {
   position: absolute;
   background-color: rgba(0, 0, 0, 0.701);
@@ -155,4 +113,19 @@
   -webkit-border-radius: 3px;
   border-radius: 3px;
   z-index: 1000;
+}
+
+/* line 94, ../sass/event.sass */
+#mutlidropdown {
+  background-color: #FFF;
+}
+
+/* line 98, ../sass/event.sass */
+.right-caret:after {
+  content: "";
+  display: inline-block;
+  height: 0;
+  vertical-align: middle;
+  width: 0;
+  margin-left: 5px;
 }
